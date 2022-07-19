@@ -9,6 +9,7 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
+import MovieScreen from '../../pages/movie-screen/movie-screen';
 
 type AppScreenProps = {
   filmData: Film[];
@@ -35,6 +36,10 @@ function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
         <Route
           path={AppRoute.UserFilmList}
           element={<MyListScreen />}
+        />
+        <Route
+          path={AppRoute.Film}
+          element={<MovieScreen />}
         />
         <Route
           path={AppRoute.NewReview}
