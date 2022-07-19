@@ -1,6 +1,16 @@
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+
 import Film from '../../types/film';
+import { AppRoute, AuthStatus } from '../../const';
 
 import MainScreen from '../../pages/main-screen/main-screen';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import LoginScreen from '../../pages/login-screen/login-screen';
+import MyListScreen from '../../pages/my-list-screen/my-list-screen';
+import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
+import PlayerScreen from '../../pages/player-screen/player-screen';
+import MovieScreen from '../../pages/movie-screen/movie-screen';
+import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
   filmData: Film[];
@@ -9,10 +19,44 @@ type AppScreenProps = {
 
 function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
   return (
-    <MainScreen
-      filmData={filmData}
-      promoFilm={promoFilm}
-    />
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={AppRoute.Root}
+          element={
+            <MainScreen
+              filmData={filmData}
+              promoFilm={promoFilm}
+            />
+          }
+        />
+        <Route
+          path={AppRoute.Login}
+          element={<LoginScreen />}
+        />
+        <Route
+          path={AppRoute.UserFilmList}
+          element={
+            <PrivateRoute authStatus={AuthStatus.NotAuth}>
+              <MyListScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Film}
+          element={<MovieScreen />}
+        />
+        <Route
+          path={AppRoute.NewReview}
+          element={<AddReviewScreen />}
+        />
+        <Route
+          path={AppRoute.Player}
+          element={<PlayerScreen />}
+        />
+        <Route path='*' element={<NotFoundScreen/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
