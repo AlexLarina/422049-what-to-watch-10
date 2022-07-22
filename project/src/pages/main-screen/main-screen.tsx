@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Film from '../../types/film';
-import FilmCard from '../../components/film-card/film-card';
+import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 
 type MainScreenProps = {
@@ -85,17 +85,7 @@ function MainScreen({filmData, promoFilm}: MainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {
-              filmData.map((film: Film) => (
-                <FilmCard
-                  key={`film-${film.id}`}
-                  posterSrc={film.posterSrc}
-                  title={film.title}
-                />
-              ))
-            }
-          </div>
+          <FilmList filmData={filmData} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

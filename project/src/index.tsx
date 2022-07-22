@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import {FILM_DATA, PROMO} from './mocks';
+import {FILM_DATA, PROMO} from './mocks/films';
 import App from './components/app/app';
 
 const root = ReactDOM.createRoot(

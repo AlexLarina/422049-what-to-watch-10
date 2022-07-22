@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import Film from '../../types/film';
-import { AppRoute, AuthStatus } from '../../const';
+import { AppRoute, AuthStatus, SHOWN_FILM_LIMIT, MOVIE_REF } from '../../const';
 
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
@@ -25,7 +25,7 @@ function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
           path={AppRoute.Root}
           element={
             <MainScreen
-              filmData={filmData}
+              filmData={filmData.slice(0, SHOWN_FILM_LIMIT)}
               promoFilm={promoFilm}
             />
           }
@@ -37,22 +37,34 @@ function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
         <Route
           path={AppRoute.UserFilmList}
           element={
-            <PrivateRoute authStatus={AuthStatus.NotAuth}>
-              <MyListScreen />
+            <PrivateRoute authStatus={AuthStatus.Auth}>
+              <MyListScreen
+                filmData={filmData.slice(0, SHOWN_FILM_LIMIT)}
+              />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Film}
-          element={<MovieScreen />}
+          element={
+            <MovieScreen />
+          }
         />
         <Route
           path={AppRoute.NewReview}
-          element={<AddReviewScreen />}
+          element={
+            <AddReviewScreen
+              film={promoFilm}
+            />
+          }
         />
         <Route
           path={AppRoute.Player}
-          element={<PlayerScreen />}
+          element={
+            <PlayerScreen
+              filmRef={MOVIE_REF}
+            />
+          }
         />
         <Route path='*' element={<NotFoundScreen/>}/>
       </Routes>

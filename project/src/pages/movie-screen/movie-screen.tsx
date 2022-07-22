@@ -1,4 +1,17 @@
+import { useLocation } from 'react-router-dom';
+import FilmList from '../../components/film-list/film-list';
+import Film from '../../types/film';
+
+import {FILM_DATA} from '../../mocks/films';
+
+interface FilmState {
+  film: Film;
+}
+
 function MovieScreen(): JSX.Element {
+  const { film } = useLocation().state as FilmState;
+
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -32,10 +45,10 @@ function MovieScreen(): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{film.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.year}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -61,7 +74,7 @@ function MovieScreen(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={`img/${film.posterSrc}`} alt={`${film.title} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -88,9 +101,9 @@ function MovieScreen(): JSX.Element {
               </div>
 
               <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`&apos;`s friend and protege.</p>
+                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend and protege.</p>
 
-                <p>Gustave prides himself on providing first-class service to the hotel`&apos;`s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave`&apos;`s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
+                <p>Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
 
                 <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
 
@@ -104,43 +117,7 @@ function MovieScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
+          <FilmList filmData={FILM_DATA.slice(1, 5)}/>
         </section>
 
         <footer className="page-footer">
