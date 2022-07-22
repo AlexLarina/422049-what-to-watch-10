@@ -14,5 +14,6 @@ export enum AuthStatus {
 }
 
 export const SHOWN_FILM_LIMIT = 8;
+export const MAX_RATE = 10;
 
 export const MOVIE_REF = 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm';
