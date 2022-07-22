@@ -1,9 +1,15 @@
-function AddReviewScreen(): JSX.Element {
+import Film from '../../types/film';
+
+type AddReviewScreenProps = {
+  film: Film,
+};
+
+function AddReviewScreen({film}: AddReviewScreenProps): JSX.Element {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={`img/${film.bigPosterSrc}`} alt={film.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -41,7 +47,7 @@ function AddReviewScreen(): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={`img/${film.posterSrc}`} alt={`${film.title} poster`} width="218" height="327" />
         </div>
       </div>
 
