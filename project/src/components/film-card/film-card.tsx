@@ -1,9 +1,9 @@
+import { MOVIE_REF, PREVIEW_TIMEOUT } from '../../const';
 import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
 import { Link } from 'react-router-dom';
-import { MOVIE_REF } from '../../const';
-import VideoPlayer from '../videoplayer/videoplayer';
+import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
   film: Film,
@@ -32,7 +32,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
 
     const timer = setTimeout(() => {
       setShowPreview(true);
-    }, 1000);
+    }, PREVIEW_TIMEOUT);
 
     return () => clearTimeout(timer);
   }, [handleMouseOver, handleMouseOut]);
