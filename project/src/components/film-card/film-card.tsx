@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
 import Film from '../../types/film';
-
+import { Link } from 'react-router-dom';
+import { MOVIE_REF } from '../../const';
+import VideoPlayer from '../videoplayer/videoplayer';
 
 type FilmCardProps = {
   film: Film,
@@ -10,11 +12,39 @@ type FilmCardProps = {
 
 function FilmCard(props: FilmCardProps): JSX.Element {
   const {film, onFilmCardHover} = props;
+  const [isCursorHold, setCursorHold] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+
+  function handleMouseOver() {
+    setCursorHold(true);
+    onFilmCardHover(film);
+  }
+
+  function handleMouseOut() {
+    setCursorHold(false);
+    setShowPreview(false);
+  }
+
+  useEffect(() => {
+    if (!isCursorHold) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setShowPreview(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [handleMouseOver, handleMouseOut]);
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseOver={() => onFilmCardHover(film)} >
+    <article className="small-film-card catalog__films-card" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <div className="small-film-card__image">
-        <img src={`img/${film.posterSrc}`} alt={film.title} width="280" height="175"/>
+        {showPreview ? (
+          <VideoPlayer posterSrc={`img/${film.posterSrc}`} src={MOVIE_REF} startPlaying={showPreview}/>
+        ) : (
+          <img src={`img/${film.posterSrc}`} alt={film.title} width="280" height="175"/>
+        )}
       </div>
       <h3 className="small-film-card__title">
         <Link
