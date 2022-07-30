@@ -1,7 +1,7 @@
 import Details from '../details/details';
 import Film from '../../types/film';
 import Overview from '../overview/overview';
-import Reviews from '../reviews/reviews';
+import Reviews from '../review-list/review-list';
 import { useState } from 'react';
 
 type TabsProps = {
@@ -13,8 +13,8 @@ function Tabs({film}: TabsProps): JSX.Element {
 
   const TabNames: { [propertyName: string] : JSX.Element } = {
     'Overview': <Overview film={film}/>,
-    'Details': <Details />,
-    'Reviews': <Reviews />
+    'Details': <Details film={film} />,
+    'Reviews': <Reviews film={film} />
   };
 
   return (

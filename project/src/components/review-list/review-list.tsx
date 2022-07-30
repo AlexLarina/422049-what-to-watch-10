@@ -1,4 +1,10 @@
-function Reviews(): JSX.Element {
+import Film from '../../types/film';
+
+type ReviewListProps = {
+  film: Film;
+};
+
+function ReviewList({film}: ReviewListProps): JSX.Element {
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -85,4 +91,4 @@ function Reviews(): JSX.Element {
   );
 }
 
-export default Reviews;
+export default ReviewList;
