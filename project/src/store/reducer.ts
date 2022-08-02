@@ -1,8 +1,9 @@
+import { chooseGenre, getFilms } from './action';
+
 import { FILM_DATA } from '../mocks/films';
 import Film from '../types/film';
 import { Genre } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { getFilms } from './action';
 
 const initialState: {
   genre: string,
@@ -16,8 +17,14 @@ const reducer = createReducer(
   initialState,
   (builder) => {
     builder
+      .addCase(chooseGenre, (state, action) => {
+        const {genre} = action.payload;
+        state.genre = genre;
+      })
       .addCase(getFilms, (state) => {
-        state.filmList = FILM_DATA;
+        state.filmList = state.genre === Genre.All
+          ? FILM_DATA :
+          FILM_DATA.filter((film) => film.genre === state.genre);
       });
   }
 );

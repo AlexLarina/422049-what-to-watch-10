@@ -1,3 +1,4 @@
+import { FILM_DATA } from '../../mocks/films';
 import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 import GenreList from '../../components/genre-list/genre-list';
@@ -53,7 +54,7 @@ function MainScreen(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList filmData={filmList}/>
+          <GenreList filmData={FILM_DATA}/>
 
           <FilmList filmData={filmList.slice(0, SHOWN_FILM_LIMIT)} />
 
