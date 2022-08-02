@@ -14,7 +14,7 @@ export enum AuthStatus {
 }
 
 export enum Genre {
-    All = 'All',
+    All = 'All genres',
 }
 
 export const SHOWN_FILM_LIMIT = 8;

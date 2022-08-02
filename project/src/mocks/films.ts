@@ -62,7 +62,7 @@ export const FILM_DATA = [
     posterSrc: 'johnny-english.jpg',
     title: 'Johnny English',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Comedy',
     year: 2014,
   },
   {
@@ -78,7 +78,7 @@ export const FILM_DATA = [
     posterSrc: 'pulp-fiction.jpg',
     title: 'Pulp Fiction',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Crime',
     year: 2014,
   },
   {
@@ -102,7 +102,7 @@ export const FILM_DATA = [
     posterSrc: 'moonrise-kingdom.jpg',
     title: 'Moonrise Kingdom',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Kids & Family',
     year: 2014,
   },
   {
@@ -110,7 +110,7 @@ export const FILM_DATA = [
     posterSrc: 'seven-years-in-tibet.jpg',
     title: 'Seven Years in Tibet',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Documentary',
     year: 2014,
   },
   {
@@ -126,7 +126,7 @@ export const FILM_DATA = [
     posterSrc: 'war-of-the-worlds.jpg',
     title: 'War of the Worlds',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Horror',
     year: 2014,
   },
   {
@@ -142,7 +142,7 @@ export const FILM_DATA = [
     posterSrc: 'orlando.jpg',
     title: 'Orlando',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Romance',
     year: 2014,
   },
   {
@@ -150,7 +150,7 @@ export const FILM_DATA = [
     posterSrc: 'mindhunter.jpg',
     title: 'Mindhunter',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Sci-Fi',
     year: 2014,
   },
   {
@@ -158,7 +158,7 @@ export const FILM_DATA = [
     posterSrc: 'midnight-special.jpg',
     title: 'Midnight Special',
     bigPosterSrc: 'bg-the-grand-budapest-hotel.jpg',
-    genre: 'Drama',
+    genre: 'Thriller',
     year: 2014,
   },
   {
