@@ -1,10 +1,10 @@
 type Film = {
+    id: string,
     title: string,
     posterSrc: string,
-    bigPosterSrc?: string,
-    id?: string,
-    genre?: string,
-    year?: number,
+    genre: string,
+    year: number,
+    bigPosterSrc: string,
 };
 
 export default Film;

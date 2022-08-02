@@ -1,20 +1,18 @@
-import React from 'react';
-
-import Film from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
+import React from 'react';
+import { SHOWN_FILM_LIMIT } from '../../const';
+import { useAppSelector } from '../../hooks/index';
 
-type MainScreenProps = {
-  filmData: Film[];
-  promoFilm: Film;
-}
+function MainScreen(): JSX.Element {
+  const filmList = useAppSelector((state) => state.filmList);
+  const promoFilm = filmList[filmList.length - 1];
 
-function MainScreen({filmData, promoFilm}: MainScreenProps): JSX.Element {
   return (
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={`img/${promoFilm.bigPosterSrc}`} alt={promoFilm.title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -41,6 +39,8 @@ function MainScreen({filmData, promoFilm}: MainScreenProps): JSX.Element {
         </header>
 
         <FilmPromo
+          id = {promoFilm.id}
+          bigPosterSrc = {promoFilm.bigPosterSrc}
           title = {promoFilm.title}
           posterSrc = {promoFilm.posterSrc}
           genre = {promoFilm.genre}
@@ -85,7 +85,7 @@ function MainScreen({filmData, promoFilm}: MainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <FilmList filmData={filmData} />
+          <FilmList filmData={filmList.slice(0, SHOWN_FILM_LIMIT)} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
