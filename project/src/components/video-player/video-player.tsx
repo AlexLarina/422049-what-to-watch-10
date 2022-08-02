@@ -29,6 +29,7 @@ function VideoPlayer({posterSrc, src, startPlaying}: VideoPlayerProps): JSX.Elem
       poster={posterSrc}
       width="280"
       height="174"
+      muted
     >
     </video>
   );

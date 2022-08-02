@@ -13,6 +13,10 @@ export enum AuthStatus {
     Unknown = 'UNKNOWN '
 }
 
+export enum Genre {
+    All = 'All genres',
+}
+
 export const SHOWN_FILM_LIMIT = 8;
 export const MAX_RATE = 10;
 export const PREVIEW_TIMEOUT = 1000;

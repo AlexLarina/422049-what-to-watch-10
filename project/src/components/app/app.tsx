@@ -1,15 +1,14 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { AppRoute, AuthStatus, MOVIE_REF, SHOWN_FILM_LIMIT } from '../../const';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-import Film from '../../types/film';
-import { AppRoute, AuthStatus, SHOWN_FILM_LIMIT, MOVIE_REF } from '../../const';
-
-import MainScreen from '../../pages/main-screen/main-screen';
-import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import LoginScreen from '../../pages/login-screen/login-screen';
-import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
-import PlayerScreen from '../../pages/player-screen/player-screen';
+import Film from '../../types/film';
+import LoginScreen from '../../pages/login-screen/login-screen';
+import MainScreen from '../../pages/main-screen/main-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
+import MyListScreen from '../../pages/my-list-screen/my-list-screen';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
@@ -24,10 +23,7 @@ function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
         <Route
           path={AppRoute.Root}
           element={
-            <MainScreen
-              filmData={filmData.slice(0, SHOWN_FILM_LIMIT)}
-              promoFilm={promoFilm}
-            />
+            <MainScreen />
           }
         />
         <Route
