@@ -3,7 +3,6 @@ import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 import GenreList from '../../components/genre-list/genre-list';
 import React from 'react';
-import { SHOWN_FILM_LIMIT } from '../../const';
 import { useAppSelector } from '../../hooks/index';
 
 function MainScreen(): JSX.Element {
@@ -56,11 +55,7 @@ function MainScreen(): JSX.Element {
 
           <GenreList filmData={FILM_DATA}/>
 
-          <FilmList filmData={filmList.slice(0, SHOWN_FILM_LIMIT)} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <FilmList filmData={filmList} />
         </section>
 
         <footer className="page-footer">
