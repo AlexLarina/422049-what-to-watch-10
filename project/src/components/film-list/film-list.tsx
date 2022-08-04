@@ -31,12 +31,7 @@ function FilmList({filmData}: FilmListProps): JSX.Element {
           ))
         }
       </div>
-      {
-        // eslint-disable-next-line no-console
-        console.log(countShown)
-      }
       {countShown < filmData.length ? <ShowMore onShowMore={onShowMore} /> : null}
-      {/* <ShowMore onShowMore={onShowMore} /> */}
     </>
   );
 }
