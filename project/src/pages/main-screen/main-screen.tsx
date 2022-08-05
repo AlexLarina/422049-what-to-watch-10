@@ -1,4 +1,4 @@
-import { FILM_DATA } from '../../mocks/films';
+import Film from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 import GenreList from '../../components/genre-list/genre-list';
@@ -7,13 +7,15 @@ import { useAppSelector } from '../../hooks/index';
 
 function MainScreen(): JSX.Element {
   const filmList = useAppSelector((state) => state.filmList);
-  const promoFilm = filmList[filmList.length - 1];
+  const fullFilmList = useAppSelector((state) => state.fullFilmList);
+  const promoFilm = useAppSelector((state) => state.promo) as Film;
+  const favouritesCount = useAppSelector((state) => state.favouriteFilmList.length);
 
   return (
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={`img/${promoFilm.bigPosterSrc}`} alt={promoFilm.title}/>
+          <img src={promoFilm.bigPosterSrc} alt={promoFilm.title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -40,12 +42,8 @@ function MainScreen(): JSX.Element {
         </header>
 
         <FilmPromo
-          id = {promoFilm.id}
-          bigPosterSrc = {promoFilm.bigPosterSrc}
-          title = {promoFilm.title}
-          posterSrc = {promoFilm.posterSrc}
-          genre = {promoFilm.genre}
-          year = {promoFilm.year}
+          film={promoFilm}
+          favouritesCount = {favouritesCount}
         />
       </section>
 
@@ -53,7 +51,7 @@ function MainScreen(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList filmData={FILM_DATA}/>
+          <GenreList filmData={fullFilmList}/>
 
           <FilmList filmData={filmList} />
         </section>

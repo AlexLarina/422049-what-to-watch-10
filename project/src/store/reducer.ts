@@ -1,16 +1,16 @@
-import { chooseGenre, getFilms } from './action';
+import { chooseGenre, getFavourites, getFilms, loadFilms, loadPromo, setLoadingStatus } from './action';
 
-import { FILM_DATA } from '../mocks/films';
-import Film from '../types/film';
 import { Genre } from '../const';
+import { InitialState } from '../types/state';
 import { createReducer } from '@reduxjs/toolkit';
 
-const initialState: {
-  genre: string,
-  filmList: Film[],
-} = {
+const initialState: InitialState = {
   genre: Genre.All,
-  filmList: FILM_DATA,
+  fullFilmList: [],
+  filmList: [],
+  favouriteFilmList: [],
+  isLoadingCompleted: false,
+  promo: null,
 };
 
 const reducer = createReducer(
@@ -23,8 +23,21 @@ const reducer = createReducer(
       })
       .addCase(getFilms, (state) => {
         state.filmList = state.genre === Genre.All
-          ? FILM_DATA :
-          FILM_DATA.filter((film) => film.genre === state.genre);
+          ? state.fullFilmList :
+          state.fullFilmList.filter((film) => film.genre === state.genre);
+      })
+      .addCase(getFavourites, (state) => {
+        state.favouriteFilmList = state.fullFilmList.filter((film) => film.isFavorite);
+      })
+      .addCase(loadFilms, (state, action) => {
+        state.fullFilmList = action.payload;
+        state.filmList = action.payload;
+      })
+      .addCase(loadPromo, (state, action) => {
+        state.promo = action.payload;
+      })
+      .addCase(setLoadingStatus, (state, action) => {
+        state.isLoadingCompleted = action.payload;
       });
   }
 );

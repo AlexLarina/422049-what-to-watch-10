@@ -1,11 +1,9 @@
-import Film from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
+import { useAppSelector } from '../../hooks';
 
-type MyListScreenProps = {
-  filmData: Film[];
-}
+function MyListScreen(): JSX.Element {
+  const favouriteFilms = useAppSelector((state) => state.favouriteFilmList);
 
-function MyListScreen({filmData}: MyListScreenProps): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -18,7 +16,7 @@ function MyListScreen({filmData}: MyListScreenProps): JSX.Element {
         </div>
 
         <h1 className="page-title user-page__title">
-          My list <span className="user-page__film-count">{filmData.length}</span>
+          My list <span className="user-page__film-count">{favouriteFilms.length}</span>
         </h1>
         <ul className="user-block">
           <li className="user-block__item">
@@ -35,7 +33,7 @@ function MyListScreen({filmData}: MyListScreenProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList filmData={filmData} />
+        <FilmList filmData={favouriteFilms} />
 
       </section>
 

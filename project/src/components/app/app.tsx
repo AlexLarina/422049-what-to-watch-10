@@ -1,8 +1,7 @@
-import { AppRoute, AuthStatus, MOVIE_REF, SHOWN_FILM_LIMIT } from '../../const';
+import { AppRoute, AuthStatus, MOVIE_REF } from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
-import Film from '../../types/film';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
@@ -10,13 +9,17 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
+import { useAppSelector } from '../../hooks';
 
-type AppScreenProps = {
-  filmData: Film[];
-  promoFilm: Film;
-}
+function App(): JSX.Element {
+  const {isLoadingCompleted} = useAppSelector((state) => state);
 
-function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
+  if (!isLoadingCompleted) {
+    return (
+      <p>Данные загружаются...</p>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -34,9 +37,7 @@ function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
           path={AppRoute.UserFilmList}
           element={
             <PrivateRoute authStatus={AuthStatus.Auth}>
-              <MyListScreen
-                filmData={filmData.slice(0, SHOWN_FILM_LIMIT)}
-              />
+              <MyListScreen />
             </PrivateRoute>
           }
         />
@@ -49,9 +50,9 @@ function App({filmData, promoFilm}: AppScreenProps): JSX.Element {
         <Route
           path={AppRoute.NewReview}
           element={
-            <AddReviewScreen
-              film={promoFilm}
-            />
+            <PrivateRoute authStatus={AuthStatus.Auth}>
+              <AddReviewScreen />
+            </PrivateRoute>
           }
         />
         <Route

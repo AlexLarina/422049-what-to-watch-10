@@ -1,16 +1,15 @@
 import AddReview from '../../components/add-review/add-review';
-import Film from '../../types/film';
+import { FilmState } from '../../types/interface';
+import { useLocation } from 'react-router-dom';
 
-type AddReviewScreenProps = {
-  film: Film,
-};
+function AddReviewScreen(): JSX.Element {
+  const { film } = useLocation().state as FilmState;
 
-function AddReviewScreen({film}: AddReviewScreenProps): JSX.Element {
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={`img/${film.bigPosterSrc}`} alt={film.title} />
+          <img src={film.bigPosterSrc} alt={film.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -48,11 +47,11 @@ function AddReviewScreen({film}: AddReviewScreenProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={`img/${film.posterSrc}`} alt={`${film.title} poster`} width="218" height="327" />
+          <img src={film.posterSrc} alt={`${film.title} poster`} width="218" height="327" />
         </div>
       </div>
 
-      <AddReview />
+      <AddReview color={film.backgroundColor}/>
     </section>
   );
 }

@@ -1,23 +1,21 @@
-import {FILM_DATA} from '../../mocks/films';
-import Film from '../../types/film';
-import FilmList from '../../components/film-list/film-list';
-import Tabs from '../../components/tabs/tabs';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-interface FilmState {
-  film: Film;
-}
+import FilmList from '../../components/film-list/film-list';
+import { FilmState } from '../../types/interface';
+import Tabs from '../../components/tabs/tabs';
+import { useAppSelector } from '../../hooks';
 
 function MovieScreen(): JSX.Element {
+  const fullFilmList = useAppSelector((state) => state.fullFilmList);
   const { film } = useLocation().state as FilmState;
-
+  const { pathname } = useLocation();
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={film.bigPosterSrc} alt={film.title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -65,7 +63,12 @@ function MovieScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link
+                  className="btn film-card__button"
+                  to={`${pathname}/review`}
+                  state={{ film: film }}
+                >Add review
+                </Link>
               </div>
             </div>
           </div>
@@ -74,7 +77,7 @@ function MovieScreen(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={`img/${film.posterSrc}`} alt={`${film.title} poster`} width="218" height="327" />
+              <img src={film.posterSrc} alt={`${film.title} poster`} width="218" height="327" />
             </div>
 
             <Tabs film={film}/>
@@ -85,7 +88,7 @@ function MovieScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList filmData={FILM_DATA.slice(1, 5)}/>
+          <FilmList filmData={fullFilmList.filter((item) => item.genre === film.genre).slice(1, 5)}/>
         </section>
 
         <footer className="page-footer">
