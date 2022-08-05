@@ -1,5 +1,12 @@
-import { AppDispatch, State } from '../types/state';
-import { loadFilms, loadPromo, setLoadingStatus } from './action';
+import {
+  AppDispatch,
+  State
+} from '../types/state';
+import {
+  loadFilms,
+  loadPromo,
+  setLoadingStatus
+} from './action';
 
 import { APIRoute } from '../const';
 import { ApiFilm } from '../types/api';
