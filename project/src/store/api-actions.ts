@@ -1,5 +1,5 @@
 import { AppDispatch, State } from '../types/state';
-import { loadFilms, setLoadingStatus } from './action';
+import { loadFilms, loadPromo, setLoadingStatus } from './action';
 
 import { APIRoute } from '../const';
 import { ApiFilm } from '../types/api';
@@ -21,5 +21,14 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, thunkOptions>(
     dispatch(setLoadingStatus(true));
     const adaptedFilmList = data.map((filmData: ApiFilm) => filmFromApi(filmData));
     dispatch(loadFilms(adaptedFilmList));
+  },
+);
+
+export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
+  'data/fetchFilms',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Film>(APIRoute.Promo);
+    dispatch(setLoadingStatus(true));
+    dispatch(loadPromo(filmFromApi(data)));
   },
 );

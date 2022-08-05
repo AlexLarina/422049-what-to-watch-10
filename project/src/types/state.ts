@@ -6,6 +6,7 @@ export type InitialState = {
   fullFilmList: Film[];
   filmList: Film[];
   favouriteFilmList: Film[];
+  promo: Film | null;
   isLoadingCompleted: boolean;
 }
 

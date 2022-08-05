@@ -1,3 +1,4 @@
+import Film from '../../types/film';
 import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 import GenreList from '../../components/genre-list/genre-list';
@@ -7,13 +8,14 @@ import { useAppSelector } from '../../hooks/index';
 function MainScreen(): JSX.Element {
   const filmList = useAppSelector((state) => state.filmList);
   const fullFilmList = useAppSelector((state) => state.fullFilmList);
+  const promoFilm = useAppSelector((state) => state.promo) as Film;
   const favouritesCount = useAppSelector((state) => state.favouriteFilmList.length);
 
   return (
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={filmList[0].bigPosterSrc} alt={filmList[0].title}/>
+          <img src={promoFilm.bigPosterSrc} alt={promoFilm.title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -40,7 +42,7 @@ function MainScreen(): JSX.Element {
         </header>
 
         <FilmPromo
-          film={filmList[0]}
+          film={promoFilm}
           favouritesCount = {favouritesCount}
         />
       </section>

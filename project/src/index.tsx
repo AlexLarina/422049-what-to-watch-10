@@ -1,10 +1,12 @@
+import { fetchFilmsAction, fetchPromoAction } from './store/api-actions';
+
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { fetchFilmsAction } from './store/api-actions';
 import { store } from './store/index';
 
+store.dispatch(fetchPromoAction());
 store.dispatch(fetchFilmsAction());
 
 const root = ReactDOM.createRoot(

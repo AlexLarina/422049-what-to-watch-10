@@ -1,4 +1,5 @@
 type Film = {
+    previewVideoLink: string;
     id: number;
     title: string;
     posterSrc: string;
