@@ -6,7 +6,7 @@ function AddReviewScreen(): JSX.Element {
   const { film } = useLocation().state as FilmState;
 
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
       <div className="film-card__header">
         <div className="film-card__bg">
           <img src={film.bigPosterSrc} alt={film.title} />
@@ -51,7 +51,7 @@ function AddReviewScreen(): JSX.Element {
         </div>
       </div>
 
-      <AddReview />
+      <AddReview color={film.backgroundColor}/>
     </section>
   );
 }

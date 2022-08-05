@@ -5,6 +5,13 @@ type Film = {
     genre: string;
     year: number;
     bigPosterSrc: string;
+    backgroundColor: string;
+    rating: number;
+    scoresCount: number;
+    director: string;
+    description: string;
+    starring: [string];
+    runTime: number;
     isFavorite?: boolean;
 };
 

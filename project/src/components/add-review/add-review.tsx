@@ -1,9 +1,12 @@
-import React from 'react';
 import { MAX_RATE } from '../../const';
 import RatePoint from '../rate-point/rate-point';
+import React from 'react';
 
+type AddReviewProps = {
+  color: string;
+}
 
-function AddReview(): JSX.Element {
+function AddReview({color}: AddReviewProps): JSX.Element {
   const [formData, setFormData] = React.useState({
     rating: '',
     'review-text': '',
@@ -26,7 +29,7 @@ function AddReview(): JSX.Element {
           </div>
         </div>
 
-        <div className="add-review__text">
+        <div className="add-review__text" style={{ backgroundColor: color }}>
           <textarea
             className="add-review__textarea"
             name="review-text"

@@ -1,24 +1,24 @@
 export enum AppRoute {
-    Root = '/',
-    Login = '/login',
-    UserFilmList = '/mylist',
-    Film = '/films/:id',
-    NewReview = '/films/:id/review',
-    Player = '/player/:id',
+  Root = '/',
+  Login = '/login',
+  UserFilmList = '/mylist',
+  Film = '/films/:id',
+  NewReview = '/films/:id/review',
+  Player = '/player/:id',
 }
 
 export enum APIRoute {
-    Films = '/films',
-  }
+  Films = '/films',
+}
 
 export enum AuthStatus {
-    Auth = 'AUTH',
-    NotAuth = 'NOT_AUTH',
-    Unknown = 'UNKNOWN '
+  Auth = 'AUTH',
+  NotAuth = 'NOT_AUTH',
+  Unknown = 'UNKNOWN '
 }
 
 export enum Genre {
-    All = 'All genres',
+  All = 'All genres',
 }
 
 export const SHOWN_FILM_LIMIT = 8;

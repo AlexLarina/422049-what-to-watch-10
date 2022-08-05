@@ -12,10 +12,10 @@ function MovieScreen(): JSX.Element {
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={film.bigPosterSrc} alt={film.title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
