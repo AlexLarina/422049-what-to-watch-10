@@ -1,8 +1,7 @@
 import { AppRoute, AuthStatus, MOVIE_REF } from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-// import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
-// import Film from '../../types/film';
+import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
@@ -48,14 +47,14 @@ function App(): JSX.Element {
             <MovieScreen />
           }
         />
-        {/* <Route
+        <Route
           path={AppRoute.NewReview}
           element={
-            <AddReviewScreen
-              film={promoFilm}
-            />
+            <PrivateRoute authStatus={AuthStatus.Auth}>
+              <AddReviewScreen />
+            </PrivateRoute>
           }
-        /> */}
+        />
         <Route
           path={AppRoute.Player}
           element={
