@@ -1,23 +1,28 @@
 import Film from '../../types/film';
 
-function FilmPromo(props: Film): JSX.Element {
+type FilmPromoProps = {
+  film: Film;
+  favouritesCount: number;
+}
+
+function FilmPromo({film, favouritesCount}: FilmPromoProps): JSX.Element {
   return (
     <div className="film-card__wrap">
       <div className="film-card__info">
         <div className="film-card__poster">
           <img
-            src={props.posterSrc}
-            alt={`${props.title} poster`}
+            src={film.posterSrc}
+            alt={`${film.title} poster`}
             width="218"
             height="327"
           />
         </div>
 
         <div className="film-card__desc">
-          <h2 className="film-card__title">{props.title}</h2>
+          <h2 className="film-card__title">{film.title}</h2>
           <p className="film-card__meta">
-            <span className="film-card__genre">{props.genre}</span>
-            <span className="film-card__year">{props.year}</span>
+            <span className="film-card__genre">{film.genre}</span>
+            <span className="film-card__year">{film.year}</span>
           </p>
 
           <div className="film-card__buttons">
@@ -32,7 +37,7 @@ function FilmPromo(props: Film): JSX.Element {
                 <use xlinkHref="#add"></use>
               </svg>
               <span>My list</span>
-              <span className="film-card__count">9</span>
+              <span className="film-card__count">{favouritesCount}</span>
             </button>
           </div>
         </div>

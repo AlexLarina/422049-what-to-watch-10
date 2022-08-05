@@ -1,4 +1,4 @@
-import { AppRoute, MOVIE_REF } from '../../const';
+import { AppRoute, AuthStatus, MOVIE_REF } from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 // import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
@@ -6,12 +6,11 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
-// import MyListScreen from '../../pages/my-list-screen/my-list-screen';
+import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
+import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-
-// import PrivateRoute from '../private-route/private-route';
 
 function App(): JSX.Element {
   const {isLoadingCompleted} = useAppSelector((state) => state);
@@ -35,16 +34,14 @@ function App(): JSX.Element {
           path={AppRoute.Login}
           element={<LoginScreen />}
         />
-        {/* <Route
+        <Route
           path={AppRoute.UserFilmList}
           element={
             <PrivateRoute authStatus={AuthStatus.Auth}>
-              <MyListScreen
-                filmData={filmData.slice(0, SHOWN_FILM_LIMIT)}
-              />
+              <MyListScreen />
             </PrivateRoute>
           }
-        /> */}
+        />
         <Route
           path={AppRoute.Film}
           element={

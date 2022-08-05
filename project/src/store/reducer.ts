@@ -1,4 +1,4 @@
-import { chooseGenre, getFilms, loadFilms, setLoadingStatus } from './action';
+import { chooseGenre, getFavourites, getFilms, loadFilms, setLoadingStatus } from './action';
 
 import { Genre } from '../const';
 import { InitialState } from '../types/state';
@@ -8,6 +8,7 @@ const initialState: InitialState = {
   genre: Genre.All,
   fullFilmList: [],
   filmList: [],
+  favouriteFilmList: [],
   isLoadingCompleted: false,
 };
 
@@ -23,6 +24,9 @@ const reducer = createReducer(
         state.filmList = state.genre === Genre.All
           ? state.fullFilmList :
           state.fullFilmList.filter((film) => film.genre === state.genre);
+      })
+      .addCase(getFavourites, (state) => {
+        state.favouriteFilmList = state.fullFilmList.filter((film) => film.isFavorite);
       })
       .addCase(loadFilms, (state, action) => {
         state.fullFilmList = action.payload;

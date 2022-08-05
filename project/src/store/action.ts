@@ -8,3 +8,5 @@ export const getFilms = createAction('genre/getFilms');
 export const loadFilms = createAction<Film[]>('data/loadFilms');
 
 export const setLoadingStatus = createAction<boolean>('data/loadingStatus');
+
+export const getFavourites = createAction('data/getFavourites');

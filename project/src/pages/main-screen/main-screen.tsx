@@ -7,13 +7,13 @@ import { useAppSelector } from '../../hooks/index';
 function MainScreen(): JSX.Element {
   const filmList = useAppSelector((state) => state.filmList);
   const fullFilmList = useAppSelector((state) => state.fullFilmList);
-  const promoFilm = filmList[0];
+  const favouritesCount = useAppSelector((state) => state.favouriteFilmList.length);
 
   return (
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={promoFilm.bigPosterSrc} alt={promoFilm.title}/>
+          <img src={filmList[0].bigPosterSrc} alt={filmList[0].title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -40,12 +40,8 @@ function MainScreen(): JSX.Element {
         </header>
 
         <FilmPromo
-          id = {promoFilm.id}
-          bigPosterSrc = {promoFilm.bigPosterSrc}
-          title = {promoFilm.title}
-          posterSrc = {promoFilm.posterSrc}
-          genre = {promoFilm.genre}
-          year = {promoFilm.year}
+          film={filmList[0]}
+          favouritesCount = {favouritesCount}
         />
       </section>
 

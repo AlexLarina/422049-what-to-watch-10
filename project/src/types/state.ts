@@ -5,6 +5,7 @@ export type InitialState = {
   genre: string;
   fullFilmList: Film[];
   filmList: Film[];
+  favouriteFilmList: Film[];
   isLoadingCompleted: boolean;
 }
 
