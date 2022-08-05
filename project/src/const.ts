@@ -7,6 +7,10 @@ export enum AppRoute {
     Player = '/player/:id',
 }
 
+export enum APIRoute {
+    Films = '/films',
+  }
+
 export enum AuthStatus {
     Auth = 'AUTH',
     NotAuth = 'NOT_AUTH',
@@ -22,3 +26,5 @@ export const MAX_RATE = 10;
 export const PREVIEW_TIMEOUT = 1000;
 
 export const MOVIE_REF = 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm';
+export const BASE_URL = 'https://10.react.pages.academy/wtw';
+export const CONNECT_TIMEOUT = 5000;

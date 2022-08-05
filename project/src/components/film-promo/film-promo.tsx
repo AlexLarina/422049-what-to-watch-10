@@ -6,7 +6,7 @@ function FilmPromo(props: Film): JSX.Element {
       <div className="film-card__info">
         <div className="film-card__poster">
           <img
-            src={`img/${props.posterSrc}`}
+            src={props.posterSrc}
             alt={`${props.title} poster`}
             width="218"
             height="327"

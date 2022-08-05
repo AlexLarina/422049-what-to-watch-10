@@ -1,4 +1,3 @@
-import { FILM_DATA } from '../../mocks/films';
 import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 import GenreList from '../../components/genre-list/genre-list';
@@ -7,13 +6,14 @@ import { useAppSelector } from '../../hooks/index';
 
 function MainScreen(): JSX.Element {
   const filmList = useAppSelector((state) => state.filmList);
-  const promoFilm = filmList[filmList.length - 1];
+  const fullFilmList = useAppSelector((state) => state.fullFilmList);
+  const promoFilm = filmList[0];
 
   return (
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={`img/${promoFilm.bigPosterSrc}`} alt={promoFilm.title}/>
+          <img src={promoFilm.bigPosterSrc} alt={promoFilm.title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -53,7 +53,7 @@ function MainScreen(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList filmData={FILM_DATA}/>
+          <GenreList filmData={fullFilmList}/>
 
           <FilmList filmData={filmList} />
         </section>

@@ -1,6 +1,5 @@
-import {FILM_DATA} from '../../mocks/films';
 import Film from '../../types/film';
-import FilmList from '../../components/film-list/film-list';
+// import FilmList from '../../components/film-list/film-list';
 import Tabs from '../../components/tabs/tabs';
 import { useLocation } from 'react-router-dom';
 
@@ -74,7 +73,7 @@ function MovieScreen(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={`img/${film.posterSrc}`} alt={`${film.title} poster`} width="218" height="327" />
+              <img src={film.posterSrc} alt={`${film.title} poster`} width="218" height="327" />
             </div>
 
             <Tabs film={film}/>
@@ -85,7 +84,7 @@ function MovieScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList filmData={FILM_DATA.slice(1, 5)}/>
+          {/* <FilmList filmData={FILM_DATA.slice(1, 5)}/> */}
         </section>
 
         <footer className="page-footer">

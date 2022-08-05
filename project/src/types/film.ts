@@ -1,5 +1,5 @@
 type Film = {
-    id: string,
+    id: number,
     title: string,
     posterSrc: string,
     genre: string,
