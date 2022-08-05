@@ -1,10 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 
+import FilmList from '../../components/film-list/film-list';
 import { FilmState } from '../../types/interface';
-// import FilmList from '../../components/film-list/film-list';
 import Tabs from '../../components/tabs/tabs';
+import { useAppSelector } from '../../hooks';
 
 function MovieScreen(): JSX.Element {
+  const fullFilmList = useAppSelector((state) => state.fullFilmList);
   const { film } = useLocation().state as FilmState;
   const { pathname } = useLocation();
 
@@ -86,7 +88,7 @@ function MovieScreen(): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          {/* <FilmList filmData={FILM_DATA.slice(1, 5)}/> */}
+          <FilmList filmData={fullFilmList.filter((item) => item.genre === film.genre).slice(1, 5)}/>
         </section>
 
         <footer className="page-footer">
