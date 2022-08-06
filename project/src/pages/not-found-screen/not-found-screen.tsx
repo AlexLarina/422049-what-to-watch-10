@@ -1,20 +1,12 @@
-import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import { Link } from 'react-router-dom';
 
 function NotFoundScreen(): JSX.Element {
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-
-        <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      <Header />
 
       <div className="page-content" style={{ textAlign: 'center' }}>
         <h2>404</h2>
@@ -22,19 +14,7 @@ function NotFoundScreen(): JSX.Element {
         <p>Maybe proceed to <Link to={AppRoute.Root} className="small-film-card__link">main page</Link> and try again?</p>
       </div>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

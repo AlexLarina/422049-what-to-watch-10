@@ -1,3 +1,4 @@
+import { AuthStatus } from '../const';
 import Film from '../types/film';
 import { createAction } from '@reduxjs/toolkit';
 
@@ -12,3 +13,5 @@ export const loadPromo = createAction<Film>('data/loadPromo');
 export const setLoadingStatus = createAction<boolean>('data/loadingStatus');
 
 export const getFavourites = createAction('data/getFavourites');
+
+export const requireAuth = createAction<AuthStatus>('user/requireAuth');

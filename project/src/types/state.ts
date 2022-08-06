@@ -8,6 +8,7 @@ export type InitialState = {
   favouriteFilmList: Film[];
   promo: Film | null;
   isLoadingCompleted: boolean;
+  authorizationStatus: string;
 }
 
 export type State = ReturnType<typeof store.getState>;

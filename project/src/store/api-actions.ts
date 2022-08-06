@@ -1,3 +1,4 @@
+import { APIRoute, AuthStatus } from '../const';
 import {
   AppDispatch,
   State
@@ -5,10 +6,10 @@ import {
 import {
   loadFilms,
   loadPromo,
+  requireAuth,
   setLoadingStatus
 } from './action';
 
-import { APIRoute } from '../const';
 import { ApiFilm } from '../types/api';
 import { AxiosInstance } from 'axios';
 import Film from '../types/film';
@@ -38,4 +39,16 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
     dispatch(setLoadingStatus(true));
     dispatch(loadPromo(filmFromApi(data)));
   },
+);
+
+export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
+  'user/requireAuth',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      await api.get(APIRoute.Login);
+      dispatch(requireAuth(AuthStatus.Auth));
+    } catch {
+      dispatch(requireAuth(AuthStatus.NotAuth));
+    }
+  }
 );

@@ -1,4 +1,4 @@
-import { AppRoute, AuthStatus, MOVIE_REF } from '../../const';
+import { AppRoute, MOVIE_REF } from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
@@ -36,7 +36,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.UserFilmList}
           element={
-            <PrivateRoute authStatus={AuthStatus.Auth}>
+            <PrivateRoute>
               <MyListScreen />
             </PrivateRoute>
           }
@@ -50,7 +50,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.NewReview}
           element={
-            <PrivateRoute authStatus={AuthStatus.Auth}>
+            <PrivateRoute>
               <AddReviewScreen />
             </PrivateRoute>
           }
