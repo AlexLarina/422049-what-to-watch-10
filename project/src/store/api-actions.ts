@@ -57,7 +57,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
 
 export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
+  async ({email, password}, {dispatch, extra: api}) => {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     // eslint-disable-next-line no-console
     console.log(token);

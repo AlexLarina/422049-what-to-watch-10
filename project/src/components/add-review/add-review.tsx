@@ -1,13 +1,13 @@
 import { MAX_RATE } from '../../const';
 import RatePoint from '../rate-point/rate-point';
-import React from 'react';
+import { useState } from 'react';
 
 type AddReviewProps = {
   color: string;
 }
 
 function AddReview({color}: AddReviewProps): JSX.Element {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     rating: '',
     'review-text': '',
   });

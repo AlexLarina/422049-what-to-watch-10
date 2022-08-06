@@ -1,4 +1,6 @@
-import { AuthStatus } from '../../const';
+import { AppRoute, AuthStatus } from '../../const';
+
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 
 function Header(): JSX.Element {
@@ -17,7 +19,11 @@ function Header(): JSX.Element {
       {authStatus === AuthStatus.NotAuth
         ?
         <div className="user-block">
-          <a href="sign-in.html" className="user-block__link">Sign in</a>
+          <Link
+            className="user-block__link"
+            to={AppRoute.Login}
+          >Sign in
+          </Link>
         </div>
         :
         <ul className="user-block">
