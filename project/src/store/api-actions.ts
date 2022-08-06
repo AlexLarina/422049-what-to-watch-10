@@ -11,8 +11,10 @@ import {
 } from './action';
 
 import { ApiFilm } from '../types/api';
+import { AuthData } from '../types/auth-data';
 import { AxiosInstance } from 'axios';
 import Film from '../types/film';
+import { UserData } from '../types/user-data';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { filmFromApi } from '../services/adapters/film';
 
@@ -50,5 +52,15 @@ export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
     } catch {
       dispatch(requireAuth(AuthStatus.NotAuth));
     }
+  }
+);
+
+export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
+  'user/login',
+  async ({login: email, password}, {dispatch, extra: api}) => {
+    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+    // eslint-disable-next-line no-console
+    console.log(token);
+    dispatch(requireAuth(AuthStatus.Auth));
   }
 );

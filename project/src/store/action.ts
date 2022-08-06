@@ -15,3 +15,4 @@ export const setLoadingStatus = createAction<boolean>('data/loadingStatus');
 export const getFavourites = createAction('data/getFavourites');
 
 export const requireAuth = createAction<AuthStatus>('user/requireAuth');
+
