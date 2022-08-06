@@ -1,5 +1,5 @@
 import { AuthStatus, Genre } from '../const';
-import { chooseGenre, getFavourites, getFilms, loadFilms, loadPromo, requireAuth, setLoadingStatus } from './action';
+import { chooseGenre, getFavourites, getFilms, loadFilms, loadPromo, requireAuth, saveUserAuthInfo, setLoadingStatus } from './action';
 
 import { InitialState } from '../types/state';
 import { createReducer } from '@reduxjs/toolkit';
@@ -12,6 +12,7 @@ const initialState: InitialState = {
   isLoadingCompleted: false,
   promo: null,
   authorizationStatus: AuthStatus.Unknown,
+  user: null,
 };
 
 const reducer = createReducer(
@@ -42,6 +43,9 @@ const reducer = createReducer(
       })
       .addCase(requireAuth, (state, action) => {
         state.authorizationStatus = action.payload;
+      })
+      .addCase(saveUserAuthInfo, (state, action) => {
+        state.user = action.payload;
       });
   }
 );

@@ -5,6 +5,8 @@ import { useAppSelector } from '../../hooks';
 
 function Header(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
+
 
   return (
     <header className="page-header film-card__head">
@@ -29,7 +31,7 @@ function Header(): JSX.Element {
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src={user?.avatarUrl} alt="User avatar" width="63" height="63"/>
             </div>
           </li>
           <li className="user-block__item">

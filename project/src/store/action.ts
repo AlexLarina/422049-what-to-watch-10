@@ -1,5 +1,6 @@
 import { AuthStatus } from '../const';
 import Film from '../types/film';
+import { UserData } from '../types/user-data';
 import { createAction } from '@reduxjs/toolkit';
 
 export const chooseGenre = createAction<{genre: string}>('genre/chooseGenre');
@@ -15,4 +16,6 @@ export const setLoadingStatus = createAction<boolean>('data/loadingStatus');
 export const getFavourites = createAction('data/getFavourites');
 
 export const requireAuth = createAction<AuthStatus>('user/requireAuth');
+
+export const saveUserAuthInfo = createAction<UserData>('user/saveAuthInfo');
 

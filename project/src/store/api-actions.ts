@@ -7,6 +7,7 @@ import {
   loadFilms,
   loadPromo,
   requireAuth,
+  saveUserAuthInfo,
   setLoadingStatus
 } from './action';
 
@@ -58,9 +59,8 @@ export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
 export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    // eslint-disable-next-line no-console
-    console.log(token);
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     dispatch(requireAuth(AuthStatus.Auth));
+    dispatch(saveUserAuthInfo(data));
   }
 );
