@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 
+import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -19,6 +23,7 @@ function LoginScreen(): JSX.Element {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loginAction(formData));
+    navigate(AppRoute.Root);
   };
 
   return (
