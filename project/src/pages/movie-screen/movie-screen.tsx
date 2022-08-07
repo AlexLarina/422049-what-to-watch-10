@@ -1,16 +1,36 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import FilmList from '../../components/film-list/film-list';
+import { APIRoute } from '../../const';
+import { ApiFilm } from '../../types/api';
+import Film from '../../types/film';
 import { FilmState } from '../../types/interface';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import SimilarFilmList from '../../components/similar-film-list/similar-film-list';
 import Tabs from '../../components/tabs/tabs';
-import { useAppSelector } from '../../hooks';
+import api from '../../services/api';
+import { filmFromApi } from '../../services/adapters/film';
 
 function MovieScreen(): JSX.Element {
-  const fullFilmList = useAppSelector((state) => state.fullFilmList);
-  const { film } = useLocation().state as FilmState;
+  const { filmID } = useLocation().state as FilmState;
+  const [film, setFilmData] = useState({} as Film);
+  const [isLoadingCompleted, setLoadingCompleted] = useState(false);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const {data} = await api.get<ApiFilm>(`${APIRoute.Films}/${filmID}`);
+      setLoadingCompleted(!isLoadingCompleted);
+      setFilmData(filmFromApi(data));
+    };
+
+    fetchData();
+  }, []);
+
+  if (!isLoadingCompleted) {
+    return <p>Data loading...</p>;
+  }
 
   return (
     <>
@@ -68,12 +88,7 @@ function MovieScreen(): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <FilmList filmData={fullFilmList.filter((item) => item.genre === film.genre).slice(1, 5)}/>
-        </section>
-
+        <SimilarFilmList filmID={filmID}/>
         <Footer />
       </div>
     </>
