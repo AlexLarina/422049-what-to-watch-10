@@ -1,4 +1,5 @@
 import Film from './film';
+import { UserData } from './user-data';
 import {store} from '../store/index';
 
 export type InitialState = {
@@ -8,6 +9,8 @@ export type InitialState = {
   favouriteFilmList: Film[];
   promo: Film | null;
   isLoadingCompleted: boolean;
+  authorizationStatus: string;
+  user: UserData | null;
 }
 
 export type State = ReturnType<typeof store.getState>;
