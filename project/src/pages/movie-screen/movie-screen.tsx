@@ -1,7 +1,7 @@
+import { APIRoute, AuthStatus } from '../../const';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import { APIRoute } from '../../const';
 import { ApiFilm } from '../../types/api';
 import Film from '../../types/film';
 import { FilmState } from '../../types/interface';
@@ -11,12 +11,14 @@ import SimilarFilmList from '../../components/similar-film-list/similar-film-lis
 import Tabs from '../../components/tabs/tabs';
 import api from '../../services/api';
 import { filmFromApi } from '../../services/adapters/film';
+import { useAppSelector } from '../../hooks';
 
 function MovieScreen(): JSX.Element {
   const { filmID } = useLocation().state as FilmState;
   const [film, setFilmData] = useState({} as Film);
   const [isLoadingCompleted, setLoadingCompleted] = useState(false);
   const { pathname } = useLocation();
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,12 +68,13 @@ function MovieScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
+                { authStatus === AuthStatus.Auth &&
                 <Link
                   className="btn film-card__button"
                   to={`${pathname}/review`}
                   state={{ film: film }}
                 >Add review
-                </Link>
+                </Link> }
               </div>
             </div>
           </div>
