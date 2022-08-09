@@ -42,6 +42,8 @@ api.interceptors.response.use(
     if (error.response) {
       toast.warn(error.response.data.error);
     }
+
+    return Promise.reject(error);
   }
 );
 

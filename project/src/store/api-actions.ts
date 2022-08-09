@@ -49,12 +49,14 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
 export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
   'user/requireAuth',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuth(AuthStatus.Auth));
-    } catch {
-      dispatch(requireAuth(AuthStatus.NotAuth));
-    }
+    await api.get(APIRoute.Login)
+      .then(
+        ()=>{
+          dispatch(requireAuth(AuthStatus.Auth));
+        },
+        () => {
+          dispatch(requireAuth(AuthStatus.NotAuth));
+        });
   }
 );
 

@@ -7,7 +7,6 @@ function Header(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
 
-
   return (
     <header className="page-header film-card__head">
       <div className="logo">
