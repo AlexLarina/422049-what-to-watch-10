@@ -44,7 +44,7 @@ function ReviewList({filmID}: ReviewListProps): JSX.Element {
               .map((review) => <Review review={review} key={`review-${review.id}`} />)}
           </div>
         </>
-        : <p>No comments yet ... </p>}
+        : <p>No reviews yet ... </p>}
     </div>
   );
 }

@@ -8,7 +8,8 @@ import {
   loadPromo,
   requireAuth,
   saveUserAuthInfo,
-  setLoadingStatus
+  setLoadingFilmsStatus,
+  setLoadingPromoStatus,
 } from './action';
 
 import { ApiFilm } from '../types/api';
@@ -30,7 +31,7 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, thunkOptions>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Films);
-    dispatch(setLoadingStatus(true));
+    dispatch(setLoadingFilmsStatus({films: true}));
     const adaptedFilmList = data.map((filmData: ApiFilm) => filmFromApi(filmData));
     dispatch(loadFilms(adaptedFilmList));
   },
@@ -40,7 +41,7 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
-    dispatch(setLoadingStatus(true));
+    dispatch(setLoadingPromoStatus({promo: true}));
     dispatch(loadPromo(filmFromApi(data)));
   },
 );

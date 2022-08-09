@@ -1,5 +1,15 @@
 import { AuthStatus, Genre } from '../const';
-import { chooseGenre, getFavourites, getFilms, loadFilms, loadPromo, requireAuth, saveUserAuthInfo, setLoadingStatus } from './action';
+import {
+  chooseGenre,
+  getFavourites,
+  getFilms,
+  loadFilms,
+  loadPromo,
+  requireAuth,
+  saveUserAuthInfo,
+  setLoadingFilmsStatus,
+  setLoadingPromoStatus,
+} from './action';
 
 import { InitialState } from '../types/state';
 import { createReducer } from '@reduxjs/toolkit';
@@ -9,7 +19,7 @@ const initialState: InitialState = {
   fullFilmList: [],
   filmList: [],
   favouriteFilmList: [],
-  isLoadingCompleted: false,
+  isLoadingCompleted: {promo: false, films: false},
   promo: null,
   authorizationStatus: AuthStatus.Unknown,
   user: null,
@@ -38,8 +48,13 @@ const reducer = createReducer(
       .addCase(loadPromo, (state, action) => {
         state.promo = action.payload;
       })
-      .addCase(setLoadingStatus, (state, action) => {
-        state.isLoadingCompleted = action.payload;
+      .addCase(setLoadingPromoStatus, (state, action) => {
+        const {promo} = action.payload;
+        state.isLoadingCompleted = {...state.isLoadingCompleted, promo};
+      })
+      .addCase(setLoadingFilmsStatus, (state, action) => {
+        const {films} = action.payload;
+        state.isLoadingCompleted = {...state.isLoadingCompleted, films};
       })
       .addCase(requireAuth, (state, action) => {
         state.authorizationStatus = action.payload;

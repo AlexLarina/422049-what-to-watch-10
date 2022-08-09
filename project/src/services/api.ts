@@ -1,7 +1,17 @@
-import { BASE_URL, CONNECT_TIMEOUT } from '../const';
-import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
+import {
+  BASE_URL,
+  CONNECT_TIMEOUT
+} from '../const';
+import
+axios,
+{
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig
+} from 'axios';
 
 import { getToken } from './token';
+import { toast } from 'react-toastify';
 
 const options: {
   baseURL: string;
@@ -28,7 +38,11 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  (error) => { throw new Error(error.response.data.error); }
+  (error: AxiosError) => {
+    if (error.response) {
+      toast.warn(error.response.data.error);
+    }
+  }
 );
 
 export default api;
