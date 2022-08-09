@@ -22,7 +22,7 @@ function AddReviewScreen(): JSX.Element {
         </div>
       </div>
 
-      <AddReview color={film.backgroundColor}/>
+      <AddReview color={film.backgroundColor} filmID={film.id}/>
     </section>
   );
 }

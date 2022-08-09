@@ -18,6 +18,7 @@ import Film from '../types/film';
 import { UserData } from '../types/user-data';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { filmFromApi } from '../services/adapters/film';
+import { saveToken } from '../services/token';
 
 type thunkOptions = {
   dispatch: AppDispatch,
@@ -62,5 +63,6 @@ export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     dispatch(requireAuth(AuthStatus.Auth));
     dispatch(saveUserAuthInfo(data));
+    saveToken(data.token);
   }
 );
