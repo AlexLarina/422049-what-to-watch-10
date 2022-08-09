@@ -1,17 +1,18 @@
-import { APIRoute, AuthStatus } from '../../const';
+import { APIRoute, AppRoute, AuthStatus } from '../../const';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 
-import { ApiFilm } from '../../types/api';
 import Film from '../../types/film';
 import { FilmState } from '../../types/interface';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SimilarFilmList from '../../components/similar-film-list/similar-film-list';
+import { StatusCodes } from 'http-status-codes';
 import Tabs from '../../components/tabs/tabs';
 import api from '../../services/api';
 import { filmFromApi } from '../../services/adapters/film';
-import { useAppSelector } from '../../hooks';
+import { redirectToRoute } from '../../store/action';
 
 function MovieScreen(): JSX.Element {
   const { filmID } = useLocation().state as FilmState;
@@ -19,12 +20,20 @@ function MovieScreen(): JSX.Element {
   const [isLoadingCompleted, setLoadingCompleted] = useState(false);
   const { pathname } = useLocation();
   const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      const {data} = await api.get<ApiFilm>(`${APIRoute.Films}/${filmID}`);
-      setLoadingCompleted(!isLoadingCompleted);
-      setFilmData(filmFromApi(data));
+      await api.get(`${APIRoute.Films}/${filmID}`).then(
+        ({data}) => {
+          setLoadingCompleted(!isLoadingCompleted);
+          setFilmData(filmFromApi(data));
+        },
+        (error) => {
+          if (error.response.status === StatusCodes.NOT_FOUND) {
+            dispatch(redirectToRoute(AppRoute.NotFound));
+          }
+        });
     };
 
     fetchData();

@@ -7,11 +7,21 @@ axios,
 {
   AxiosError,
   AxiosInstance,
-  AxiosRequestConfig
+  AxiosRequestConfig,
+  AxiosResponse
 } from 'axios';
 
+import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
 import { toast } from 'react-toastify';
+
+const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};
+
+const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
 const options: {
   baseURL: string;
@@ -39,9 +49,12 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    if (error.response) {
-      toast.warn(error.response.data.error);
+    if (error.response && shouldDisplayError(error.response)) {
+      error.response.data
+        ? toast.warn(error.response.data.error)
+        : toast.error(error.response.statusText);
     }
+
 
     return Promise.reject(error);
   }
