@@ -17,8 +17,6 @@ function ReviewList({filmID}: ReviewListProps): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       const {data} = await api.get<ApiReview[]>(`${APIRoute.Comments}/${filmID}`);
-      // eslint-disable-next-line no-console
-      console.log(data);
       setLoadingCompleted(!isLoadingCompleted);
       setReviews(data);
     };

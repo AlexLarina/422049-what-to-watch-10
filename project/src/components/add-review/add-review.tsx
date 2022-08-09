@@ -25,9 +25,7 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
       comment: formData['review-text'],
       rating: Number(formData.rating),
     };
-    const response = await api.post(`${APIRoute.Comments}/${filmID}`, payload);
-    // eslint-disable-next-line no-console
-    console.log(response);
+    await api.post(`${APIRoute.Comments}/${filmID}`, payload);
   };
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {

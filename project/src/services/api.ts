@@ -18,9 +18,6 @@ api.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     const token = getToken();
 
-    // eslint-disable-next-line no-console
-    console.log(token);
-
     if (token) {
       config.headers['x-token'] = token;
     }
