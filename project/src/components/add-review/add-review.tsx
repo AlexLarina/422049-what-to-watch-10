@@ -1,12 +1,18 @@
-import { MAX_RATE } from '../../const';
+import { APIRoute, AppRoute, MAX_RATE } from '../../const';
+
 import RatePoint from '../rate-point/rate-point';
+import api from '../../services/api';
+import { redirectToRoute } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
 import { useState } from 'react';
 
 type AddReviewProps = {
   color: string;
+  filmID: number;
 }
 
-function AddReview({color}: AddReviewProps): JSX.Element {
+function AddReview({color, filmID}: AddReviewProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     rating: '',
     'review-text': '',
@@ -17,9 +23,25 @@ function AddReview({color}: AddReviewProps): JSX.Element {
     setFormData({...formData, [name]: value});
   };
 
+  const postReviewData = async () => {
+    const payload = {
+      comment: formData['review-text'],
+      rating: Number(formData.rating),
+    };
+    await api.post(`${APIRoute.Comments}/${filmID}`, payload)
+      .then(() => {
+        dispatch(redirectToRoute(AppRoute.Film));
+      });
+  };
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    postReviewData();
+  };
+
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form action="#" className="add-review__form" onSubmit={onSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {

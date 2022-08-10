@@ -1,5 +1,27 @@
-import { BASE_URL, CONNECT_TIMEOUT } from '../const';
-import axios, {AxiosInstance} from 'axios';
+import {
+  BASE_URL,
+  CONNECT_TIMEOUT
+} from '../const';
+import
+axios,
+{
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse
+} from 'axios';
+
+import { StatusCodes } from 'http-status-codes';
+import { getToken } from './token';
+import { toast } from 'react-toastify';
+
+const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};
+
+const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
 const options: {
   baseURL: string;
@@ -9,14 +31,34 @@ const options: {
   timeout: CONNECT_TIMEOUT,
 };
 
-export const createAPI = (): AxiosInstance => {
-  const api = axios.create(options);
+const createAPI = (): AxiosInstance => axios.create(options);
+const api = createAPI();
 
-  api.interceptors.response.use(
-    (response) => response,
-    (error) => { throw new Error(error.response.data.error); }
-  );
+api.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    const token = getToken();
 
-  return api;
-};
+    if (token) {
+      config.headers['x-token'] = token;
+    }
+
+    return config;
+  },
+);
+
+api.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError) => {
+    if (error.response && shouldDisplayError(error.response)) {
+      error.response.data
+        ? toast.warn(error.response.data.error)
+        : toast.error(error.response.statusText);
+    }
+
+
+    return Promise.reject(error);
+  }
+);
+
+export default api;
 

@@ -50,7 +50,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         <Link
           className="small-film-card__link"
           to={`films/${film.id}`}
-          state={{ film: film }}
+          state={{ filmID: film.id }}
         >{film.title}
         </Link>
       </h3>

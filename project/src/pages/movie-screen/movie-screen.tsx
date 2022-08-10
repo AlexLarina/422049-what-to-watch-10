@@ -1,16 +1,47 @@
+import { APIRoute, AppRoute, AuthStatus } from '../../const';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect, useState } from 'react';
 
-import FilmList from '../../components/film-list/film-list';
+import Film from '../../types/film';
 import { FilmState } from '../../types/interface';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import SimilarFilmList from '../../components/similar-film-list/similar-film-list';
+import { StatusCodes } from 'http-status-codes';
 import Tabs from '../../components/tabs/tabs';
-import { useAppSelector } from '../../hooks';
+import api from '../../services/api';
+import { filmFromApi } from '../../services/adapters/film';
+import { redirectToRoute } from '../../store/action';
 
 function MovieScreen(): JSX.Element {
-  const fullFilmList = useAppSelector((state) => state.fullFilmList);
-  const { film } = useLocation().state as FilmState;
+  const { filmID } = useLocation().state as FilmState;
+  const [film, setFilmData] = useState({} as Film);
+  const [isLoadingCompleted, setLoadingCompleted] = useState(false);
   const { pathname } = useLocation();
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await api.get(`${APIRoute.Films}/${filmID}`).then(
+        ({data}) => {
+          setLoadingCompleted(!isLoadingCompleted);
+          setFilmData(filmFromApi(data));
+        },
+        (error) => {
+          if (error.response.status === StatusCodes.NOT_FOUND) {
+            dispatch(redirectToRoute(AppRoute.NotFound));
+          }
+        });
+    };
+
+    fetchData();
+  }, []);
+
+  if (!isLoadingCompleted) {
+    return <p>Data loading...</p>;
+  }
 
   return (
     <>
@@ -46,12 +77,13 @@ function MovieScreen(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
+                { authStatus === AuthStatus.Auth &&
                 <Link
                   className="btn film-card__button"
                   to={`${pathname}/review`}
                   state={{ film: film }}
                 >Add review
-                </Link>
+                </Link> }
               </div>
             </div>
           </div>
@@ -68,12 +100,7 @@ function MovieScreen(): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <FilmList filmData={fullFilmList.filter((item) => item.genre === film.genre).slice(1, 5)}/>
-        </section>
-
+        <SimilarFilmList filmID={filmID}/>
         <Footer />
       </div>
     </>

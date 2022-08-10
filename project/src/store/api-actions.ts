@@ -8,7 +8,8 @@ import {
   loadPromo,
   requireAuth,
   saveUserAuthInfo,
-  setLoadingStatus
+  setLoadingFilmsStatus,
+  setLoadingPromoStatus,
 } from './action';
 
 import { ApiFilm } from '../types/api';
@@ -18,6 +19,7 @@ import Film from '../types/film';
 import { UserData } from '../types/user-data';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { filmFromApi } from '../services/adapters/film';
+import { saveToken } from '../services/token';
 
 type thunkOptions = {
   dispatch: AppDispatch,
@@ -29,7 +31,7 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, thunkOptions>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Films);
-    dispatch(setLoadingStatus(true));
+    dispatch(setLoadingFilmsStatus({films: true}));
     const adaptedFilmList = data.map((filmData: ApiFilm) => filmFromApi(filmData));
     dispatch(loadFilms(adaptedFilmList));
   },
@@ -39,7 +41,7 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
-    dispatch(setLoadingStatus(true));
+    dispatch(setLoadingPromoStatus({promo: true}));
     dispatch(loadPromo(filmFromApi(data)));
   },
 );
@@ -47,12 +49,14 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
 export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
   'user/requireAuth',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuth(AuthStatus.Auth));
-    } catch {
-      dispatch(requireAuth(AuthStatus.NotAuth));
-    }
+    await api.get(APIRoute.Login)
+      .then(
+        ()=>{
+          dispatch(requireAuth(AuthStatus.Auth));
+        },
+        () => {
+          dispatch(requireAuth(AuthStatus.NotAuth));
+        });
   }
 );
 
@@ -62,5 +66,6 @@ export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     dispatch(requireAuth(AuthStatus.Auth));
     dispatch(saveUserAuthInfo(data));
+    saveToken(data.token);
   }
 );

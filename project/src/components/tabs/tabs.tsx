@@ -14,7 +14,7 @@ function Tabs({film}: TabsProps): JSX.Element {
   const TabNames: { [propertyName: string] : JSX.Element } = {
     'Overview': <Overview film={film}/>,
     'Details': <Details film={film} />,
-    'Reviews': <Reviews film={film} />
+    'Reviews': <Reviews filmID={film.id} />
   };
 
   return (

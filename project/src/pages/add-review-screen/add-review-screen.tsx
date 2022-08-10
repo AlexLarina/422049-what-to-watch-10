@@ -1,10 +1,10 @@
 import AddReview from '../../components/add-review/add-review';
-import { FilmState } from '../../types/interface';
 import Header from '../../components/header/header';
+import { ReviewState } from '../../types/interface';
 import { useLocation } from 'react-router-dom';
 
 function AddReviewScreen(): JSX.Element {
-  const { film } = useLocation().state as FilmState;
+  const { film } = useLocation().state as ReviewState;
 
   return (
     <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
@@ -22,7 +22,7 @@ function AddReviewScreen(): JSX.Element {
         </div>
       </div>
 
-      <AddReview color={film.backgroundColor}/>
+      <AddReview color={film.backgroundColor} filmID={film.id}/>
     </section>
   );
 }
