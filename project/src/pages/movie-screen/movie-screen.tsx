@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
 import FilmControls from '../../components/film-controls/film-controls';
-import { FilmState } from '../../types/interface';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SimilarFilmList from '../../components/similar-film-list/similar-film-list';
@@ -13,17 +12,17 @@ import api from '../../services/api';
 import { filmFromApi } from '../../services/adapters/film';
 import { redirectToRoute } from '../../store/action';
 import { useAppDispatch } from '../../hooks';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function MovieScreen(): JSX.Element {
-  const { filmID } = useLocation().state as FilmState;
+  const { id } = useParams();
   const [film, setFilmData] = useState({} as Film);
   const [isLoadingCompleted, setLoadingCompleted] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      await api.get(`${APIRoute.Films}/${filmID}`).then(
+      await api.get(`${APIRoute.Films}/${id}`).then(
         ({data}) => {
           setLoadingCompleted(!isLoadingCompleted);
           setFilmData(filmFromApi(data));
@@ -83,7 +82,7 @@ function MovieScreen(): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        <SimilarFilmList filmID={filmID}/>
+        <SimilarFilmList filmID={Number(id)}/>
         <Footer />
       </div>
     </>
