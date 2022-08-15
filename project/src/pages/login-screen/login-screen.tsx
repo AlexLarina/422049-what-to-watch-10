@@ -20,8 +20,8 @@ function LoginScreen(): JSX.Element {
     setFormData({...formData, [type]: value});
   };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     dispatch(loginAction(formData));
     navigate(AppRoute.Root);
   };

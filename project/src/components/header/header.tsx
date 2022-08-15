@@ -1,11 +1,18 @@
 import { AppRoute, AuthStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 function Header(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  const onClick = (evt: React.MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    dispatch(logoutAction());
+  };
 
   return (
     <header className="page-header film-card__head">
@@ -34,7 +41,12 @@ function Header(): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <a
+              className="user-block__link"
+              onClick={onClick}
+            >
+              Sign out
+            </a>
           </li>
         </ul>}
     </header>

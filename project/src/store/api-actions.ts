@@ -4,6 +4,10 @@ import {
   State
 } from '../types/state';
 import {
+  dropToken,
+  saveToken
+} from '../services/token';
+import {
   loadFilms,
   loadPromo,
   requireAuth,
@@ -19,7 +23,6 @@ import Film from '../types/film';
 import { UserData } from '../types/user-data';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { filmFromApi } from '../services/adapters/film';
-import { saveToken } from '../services/token';
 
 type thunkOptions = {
   dispatch: AppDispatch,
@@ -67,5 +70,14 @@ export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
     dispatch(requireAuth(AuthStatus.Auth));
     dispatch(saveUserAuthInfo(data));
     saveToken(data.token);
+  }
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, thunkOptions>(
+  'user/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(requireAuth(AuthStatus.NotAuth));
   }
 );
