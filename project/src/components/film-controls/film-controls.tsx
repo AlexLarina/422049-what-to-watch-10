@@ -1,6 +1,6 @@
-import { AppRoute, AuthStatus } from '../../const';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import { AppRoute } from '../../const';
 import Film from '../../types/film';
 import { useAppSelector } from '../../hooks';
 
@@ -10,7 +10,6 @@ type FilmControlsProps = {
 
 function FilmControls({film}: FilmControlsProps): JSX.Element {
   const favouritesCount = useAppSelector((state) => state.favouriteFilmList.length);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -38,13 +37,12 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
         <span className="film-card__count">{favouritesCount}</span>
       </button>
 
-      { authStatus === AuthStatus.Auth &&
-          <Link
-            className="btn film-card__button"
-            to={`${pathname}/review`}
-            state={{ film: film }}
-          >Add review
-          </Link>}
+      <Link
+        className="btn film-card__button"
+        to={`${pathname}/review`}
+        state={{ film: film }}
+      >Add review
+      </Link>
     </div>
   );
 }
