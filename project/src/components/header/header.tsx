@@ -13,7 +13,12 @@ import {
 
 import { logoutAction } from '../../store/api-actions';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  headerClass: string;
+  children?: JSX.Element;
+}
+
+function Header({headerClass, children}: HeaderProps): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
 
@@ -29,8 +34,10 @@ function Header(): JSX.Element {
     navigate(AppRoute.UserFilmList);
   };
 
+  //film-card__head
+
   return (
-    <header className="page-header film-card__head">
+    <header className={`page-header ${headerClass}`}>
       <div className="logo">
         <a className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
@@ -38,6 +45,8 @@ function Header(): JSX.Element {
           <span className="logo__letter logo__letter--3">W</span>
         </a>
       </div>
+
+      {children}
 
       {authStatus === AuthStatus.NotAuth
         ?

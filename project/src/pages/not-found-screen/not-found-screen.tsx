@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function NotFoundScreen(): JSX.Element {
   return (
     <div className="user-page">
-      <Header />
+      <Header headerClass='user-page__head'/>
 
       <div className="page-content" style={{ textAlign: 'center' }}>
         <h2>404</h2>
