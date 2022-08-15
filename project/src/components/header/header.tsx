@@ -1,17 +1,32 @@
-import { AppRoute, AuthStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  AppRoute,
+  AuthStatus
+} from '../../const';
+import {
+  Link,
+  useNavigate
+} from 'react-router-dom';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
 
-import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 
 function Header(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
+
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onClick = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
+  };
+
+  const onAvatarClick = (evt: React.MouseEvent<HTMLElement>) => {
+    navigate(AppRoute.UserFilmList);
   };
 
   return (
@@ -36,8 +51,13 @@ function Header(): JSX.Element {
         :
         <ul className="user-block">
           <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src={user?.avatarUrl} alt="User avatar" width="63" height="63"/>
+            <div className="user-block__avatar" onClick={onAvatarClick}>
+              <img
+                src={user?.avatarUrl}
+                alt="User avatar"
+                width="63"
+                height="63"
+              />
             </div>
           </li>
           <li className="user-block__item">
