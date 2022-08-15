@@ -1,9 +1,9 @@
 import Film from './film';
 
 export interface FilmState {
-    filmID: number;
+  filmID: number;
 }
 
 export interface ReviewState {
-    film: Film;
+  film: Film;
 }
