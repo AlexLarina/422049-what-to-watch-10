@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +29,10 @@ function LoginScreen(): JSX.Element {
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
+      <Header headerClass='user-page__head'>
+        <h1 className="page-title user-page__title">Sign in</h1>
+      </Header>
+      {/* <header className="page-header user-page__head">
         <div className="logo">
           <a href="main.html" className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
@@ -38,7 +42,7 @@ function LoginScreen(): JSX.Element {
         </div>
 
         <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      </header> */}
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={onSubmit}>

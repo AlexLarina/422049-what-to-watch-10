@@ -1,17 +1,12 @@
 import {
-  AppRoute,
-  AuthStatus
-} from '../../const';
-import {
   Link,
-  useNavigate
+  useLocation,
 } from 'react-router-dom';
-import {
-  useAppDispatch,
-  useAppSelector
-} from '../../hooks';
 
-import { logoutAction } from '../../store/api-actions';
+import {
+  AppRoute
+} from '../../const';
+import UserBlock from '../user-block/user-block';
 
 type HeaderProps = {
   headerClass: string;
@@ -19,65 +14,24 @@ type HeaderProps = {
 }
 
 function Header({headerClass, children}: HeaderProps): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
-
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const onClick = (evt: React.MouseEvent<HTMLElement>) => {
-    evt.preventDefault();
-    dispatch(logoutAction());
-  };
-
-  const onAvatarClick = (evt: React.MouseEvent<HTMLElement>) => {
-    navigate(AppRoute.UserFilmList);
-  };
-
-  //film-card__head
+  const { pathname } = useLocation();
 
   return (
     <header className={`page-header ${headerClass}`}>
       <div className="logo">
-        <a className="logo__link">
+        <Link
+          className="logo__link"
+          to={AppRoute.Root}
+        >
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        </Link>
       </div>
 
       {children}
 
-      {authStatus === AuthStatus.NotAuth
-        ?
-        <div className="user-block">
-          <Link
-            className="user-block__link"
-            to={AppRoute.Login}
-          >Sign in
-          </Link>
-        </div>
-        :
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar" onClick={onAvatarClick}>
-              <img
-                src={user?.avatarUrl}
-                alt="User avatar"
-                width="63"
-                height="63"
-              />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <a
-              className="user-block__link"
-              onClick={onClick}
-            >
-              Sign out
-            </a>
-          </li>
-        </ul>}
+      {pathname !== AppRoute.Login && <UserBlock />}
     </header>
   );
 }
