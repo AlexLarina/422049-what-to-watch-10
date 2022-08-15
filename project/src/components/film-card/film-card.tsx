@@ -60,10 +60,12 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         )}
       </div>
       <h3 className="small-film-card__title">
+        {/* @TO-DO replace attr doesn't work */}
         <Link
           className="small-film-card__link"
           to={`films/${film.id}`}
           state={{ filmID: film.id }}
+          replace
         >{film.title}
         </Link>
       </h3>
