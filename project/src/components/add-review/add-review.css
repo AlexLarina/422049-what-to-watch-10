@@ -13,3 +13,7 @@
   opacity: 50%;
   font-size: 17px;
 }
+
+.add-review__form fieldset {
+  border: none;
+}
