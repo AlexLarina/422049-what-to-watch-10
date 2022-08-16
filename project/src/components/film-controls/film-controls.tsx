@@ -1,7 +1,9 @@
-import { AppRoute, AuthStatus } from '../../const';
+import { APIRoute, AppRoute, AuthStatus } from '../../const';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
+import api from '../../services/api';
 import { useAppSelector } from '../../hooks';
 
 type FilmControlsProps = {
@@ -13,6 +15,23 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const [isFavourite, setFavourite] = useState(false);
+  const [statusChanged, setStatusChanged] = useState(false);
+
+  const onFavouriteClick = () => {
+    if (authStatus === AuthStatus.NotAuth) {navigate(AppRoute.Login);}
+    setFavourite(!isFavourite);
+    setStatusChanged(true);
+  };
+
+  useEffect(() => {
+    const changeFilmStatus = async () => {
+      await api.post(`${APIRoute.Favourite}/${film.id}/${isFavourite ? 1 : 0}`)
+        .then(() => { setStatusChanged(false); });
+    };
+
+    if(statusChanged) {changeFilmStatus();}
+  }, [statusChanged]);
 
   return (
     <div className="film-card__buttons">
@@ -30,12 +49,20 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       <button
         className="btn btn--list film-card__button"
         type="button"
+        onClick={onFavouriteClick}
       >
         <svg viewBox="0 0 19 20" width="19" height="20">
-          <use xlinkHref="#add"></use>
+          {
+            isFavourite
+              ? <use xlinkHref="#in-list"></use>
+              : <use xlinkHref="#add"></use>
+          }
         </svg>
         <span>My list</span>
-        <span className="film-card__count">{favouritesCount}</span>
+        {
+          authStatus === AuthStatus.Auth &&
+          <span className="film-card__count">{favouritesCount}</span>
+        }
       </button>
 
       { (pathname !== AppRoute.Root && authStatus === AuthStatus.Auth) &&
