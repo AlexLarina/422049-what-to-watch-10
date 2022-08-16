@@ -38,7 +38,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
         <span className="film-card__count">{favouritesCount}</span>
       </button>
 
-      { authStatus === AuthStatus.Auth &&
+      { (pathname !== AppRoute.Root && authStatus === AuthStatus.Auth) &&
       <Link
         className="btn film-card__button"
         to={`${pathname}/review`}

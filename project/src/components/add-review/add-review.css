@@ -1,0 +1,15 @@
+.add-review__text,
+.add-review__hint {
+  filter: brightness(95%);
+}
+
+.add-review__hint {
+  border-radius: 8px;
+}
+
+.hint__text {
+  padding: 10px 25px;
+  color: black;
+  opacity: 50%;
+  font-size: 17px;
+}

@@ -31,6 +31,8 @@ export const MAX_RATE = 10;
 export const MAX_GENRE_SHOWN = 9;
 export const PREVIEW_TIMEOUT = 1000;
 export const MINTUES_IN_HOUR = 60;
+export const REVIEW_MIN_LENGTH = 50;
+export const REVIEW_MAX_LENGTH = 400;
 
 export const MOVIE_REF = 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm';
 export const BASE_URL = 'https://10.react.pages.academy/wtw';
