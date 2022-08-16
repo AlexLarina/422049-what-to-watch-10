@@ -1,11 +1,11 @@
 import { APIRoute, AppRoute, AuthStatus } from '../../const';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { fetchFavouriteAction, fetchFilmsAction, fetchPromoAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
 import api from '../../services/api';
-import { fetchFavouriteAction } from '../../store/api-actions';
 
 type FilmControlsProps = {
   film: Film;
@@ -31,6 +31,9 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       await api.post(`${APIRoute.Favourite}/${film.id}/${isFavourite ? 1 : 0}`)
         .then(() => {
           setStatusChanged(false);
+          // @TO-DO оптимизировать обновление
+          dispatch(fetchPromoAction());
+          dispatch(fetchFilmsAction());
           dispatch(fetchFavouriteAction());
         });
     };
@@ -58,7 +61,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       >
         <svg viewBox="0 0 19 20" width="19" height="20">
           {
-            isFavourite
+            (isFavourite || film.isFavorite)
               ? <use xlinkHref="#in-list"></use>
               : <use xlinkHref="#add"></use>
           }
