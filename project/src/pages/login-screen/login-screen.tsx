@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import { AppRoute, AuthStatus } from '../../const';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { loginAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 
 function LoginScreen(): JSX.Element {
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(authStatus === AuthStatus.Auth) {navigate(AppRoute.Root);}
+  }, [authStatus]);
 
   const [formData, setFormData] = useState({
     email: '',
