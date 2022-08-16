@@ -1,10 +1,11 @@
 import { APIRoute, AppRoute, AuthStatus } from '../../const';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
 import api from '../../services/api';
-import { useAppSelector } from '../../hooks';
+import { fetchFavouriteAction } from '../../store/api-actions';
 
 type FilmControlsProps = {
   film: Film;
@@ -15,6 +16,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isFavourite, setFavourite] = useState(false);
   const [statusChanged, setStatusChanged] = useState(false);
 
@@ -27,7 +29,10 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
   useEffect(() => {
     const changeFilmStatus = async () => {
       await api.post(`${APIRoute.Favourite}/${film.id}/${isFavourite ? 1 : 0}`)
-        .then(() => { setStatusChanged(false); });
+        .then(() => {
+          setStatusChanged(false);
+          dispatch(fetchFavouriteAction());
+        });
     };
 
     if(statusChanged) {changeFilmStatus();}
