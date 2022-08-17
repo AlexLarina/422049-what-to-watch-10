@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 
+import browserHistory from '../../services/browser-history';
 import { useLocation } from 'react-router-dom';
 
 interface PlayerState {
@@ -27,6 +28,10 @@ function PlayerScreen(): JSX.Element {
     videoRef.current.pause();
   };
 
+  const onExitClick = () => {
+    browserHistory.back();
+  };
+
   return (
     <div className="player">
       <video
@@ -38,7 +43,12 @@ function PlayerScreen(): JSX.Element {
       >
       </video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button
+        type="button"
+        className="player__exit"
+        onClick={onExitClick}
+      >Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
