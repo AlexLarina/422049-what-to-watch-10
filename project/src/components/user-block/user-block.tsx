@@ -51,12 +51,13 @@ function UserBlock(): JSX.Element {
           </div>
         </li>
         <li className="user-block__item">
-          <a
+          <span
+            style={{cursor: 'pointer'}}
             className="user-block__link"
             onClick={onClick}
           >
             Sign out
-          </a>
+          </span>
         </li>
       </ul>
   );

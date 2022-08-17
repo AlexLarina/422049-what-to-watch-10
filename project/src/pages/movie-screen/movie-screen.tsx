@@ -24,7 +24,7 @@ function MovieScreen(): JSX.Element {
     const fetchData = async () => {
       await api.get(`${APIRoute.Films}/${id}`).then(
         ({data}) => {
-          setLoadingCompleted(!isLoadingCompleted);
+          setLoadingCompleted(true);
           setFilmData(filmFromApi(data));
         },
         (error) => {
@@ -35,7 +35,7 @@ function MovieScreen(): JSX.Element {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   if (!isLoadingCompleted) {
     return <p>Data loading...</p>;

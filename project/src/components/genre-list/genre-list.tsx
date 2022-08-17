@@ -25,8 +25,8 @@ function GenreList({filmData}: GenreListProps): JSX.Element {
             ? 'catalog__genres-item catalog__genres-item--active'
             : 'catalog__genres-item'}
         >
-          <a
-            href="#"
+          <span
+            style={{cursor: 'pointer'}}
             className="catalog__genres-link"
             onClick={(e) => {
               e.preventDefault();
@@ -36,7 +36,7 @@ function GenreList({filmData}: GenreListProps): JSX.Element {
             }}
           >
             {genre}
-          </a>
+          </span>
         </li>
       ))}
     </ul>
