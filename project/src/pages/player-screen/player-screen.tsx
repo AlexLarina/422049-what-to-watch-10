@@ -1,5 +1,7 @@
-import { useRef, useState } from 'react';
+import { CSSProperties, useRef, useState } from 'react';
 
+import { LOADER_COLOR } from '../../const';
+import RingLoader from 'react-spinners/RingLoader';
 import browserHistory from '../../services/browser-history';
 import formateTime from '../../services/time';
 import { useLocation } from 'react-router-dom';
@@ -9,10 +11,20 @@ interface PlayerState {
   poster: string;
 }
 
+const override: CSSProperties = {
+  display: 'block',
+  borderColor: 'red',
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  transform: 'translate(-50%, -50%)',
+};
+
 function PlayerScreen(): JSX.Element {
   const {filmRef, poster} = useLocation().state as PlayerState;
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -42,6 +54,8 @@ function PlayerScreen(): JSX.Element {
 
   return (
     <div className="player">
+      <RingLoader color={LOADER_COLOR} loading={isLoading} size={75} cssOverride={override} />
+
       <video
         src={filmRef}
         ref={videoRef}
@@ -53,6 +67,12 @@ function PlayerScreen(): JSX.Element {
         }}
         onTimeUpdate={(e: React.SyntheticEvent<HTMLVideoElement>) => {
           setCurrentTime(e.currentTarget.currentTime);
+        }}
+        onLoadStart={() => {
+          setIsLoading(true);
+        }}
+        onLoadedData={() => {
+          setIsLoading(false);
         }}
       >
       </video>

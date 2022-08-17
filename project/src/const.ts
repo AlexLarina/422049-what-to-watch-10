@@ -8,6 +8,7 @@ export const REVIEW_MIN_LENGTH = 50;
 export const REVIEW_MAX_LENGTH = 400;
 export const CONNECT_TIMEOUT = 5000;
 export const SECONDS_IN_HOUR = 3600;
+export const LOADER_COLOR = '#d9cd8d';
 
 export enum AppRoute {
   Root = '/',
