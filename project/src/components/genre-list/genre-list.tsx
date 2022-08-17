@@ -1,7 +1,7 @@
+import { Genre, MAX_GENRE_SHOWN } from '../../const';
 import { chooseGenre, getFilms } from '../../store/action';
 
 import Film from '../../types/film';
-import { Genre } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { useState } from 'react';
 
@@ -11,7 +11,7 @@ type GenreListProps = {
 
 function GenreList({filmData}: GenreListProps): JSX.Element {
   const genreList = [Genre.All, ...filmData.map((film) => film.genre)];
-  const uniqueGenreList = [...new Set(genreList)];
+  const uniqueGenreList = [...new Set(genreList)].slice(0, MAX_GENRE_SHOWN);
 
   const [activeGenre, setActiveGenre] = useState(Genre.All as string);
   const dispatch = useAppDispatch();

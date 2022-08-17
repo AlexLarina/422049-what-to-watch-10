@@ -7,6 +7,7 @@ export const filmFromApi = (apiFilm: ApiFilm) => {
     posterSrc: apiFilm.posterImage,
     year: apiFilm.released,
     bigPosterSrc: apiFilm.backgroundImage,
+    rating: apiFilm.rating?.toFixed(1),
     ...apiFilm,
   };
 

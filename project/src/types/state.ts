@@ -8,7 +8,7 @@ export type InitialState = {
   filmList: Film[];
   favouriteFilmList: Film[];
   promo: Film | null;
-  isLoadingCompleted: {promo: boolean, films: boolean};
+  isLoadingCompleted: {promo: boolean, films: boolean, favourite: boolean};
   authorizationStatus: string;
   user: UserData | null;
 }

@@ -1,7 +1,7 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
-import { Link } from 'react-router-dom';
 import { PREVIEW_TIMEOUT } from '../../const';
 import VideoPlayer from '../video-player/video-player';
 
@@ -14,6 +14,11 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   const {film, onFilmCardHover} = props;
   const [isCursorHold, setCursorHold] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate(`films/${film.id}`);
+  }
 
   function handleMouseOver() {
     setCursorHold(true);
@@ -38,19 +43,29 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   }, [handleMouseOver, handleMouseOut]);
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <article className="small-film-card catalog__films-card"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      onClick={handleClick}
+    >
       <div className="small-film-card__image">
         {showPreview ? (
-          <VideoPlayer posterSrc={film.posterSrc} src={film.previewVideoLink} startPlaying={showPreview}/>
+          <VideoPlayer
+            posterSrc={film.posterSrc}
+            src={film.previewVideoLink}
+            startPlaying={showPreview}
+          />
         ) : (
           <img src={film.posterSrc} alt={film.title} width="280" height="175"/>
         )}
       </div>
       <h3 className="small-film-card__title">
+        {/* @TO-DO replace attr doesn't work */}
         <Link
           className="small-film-card__link"
           to={`films/${film.id}`}
           state={{ filmID: film.id }}
+          replace
         >{film.title}
         </Link>
       </h3>

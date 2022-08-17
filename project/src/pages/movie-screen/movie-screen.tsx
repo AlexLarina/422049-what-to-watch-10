@@ -1,10 +1,8 @@
-import { APIRoute, AppRoute, AuthStatus } from '../../const';
-import { Link, useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { APIRoute, AppRoute } from '../../const';
 import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
-import { FilmState } from '../../types/interface';
+import FilmControls from '../../components/film-controls/film-controls';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SimilarFilmList from '../../components/similar-film-list/similar-film-list';
@@ -13,18 +11,18 @@ import Tabs from '../../components/tabs/tabs';
 import api from '../../services/api';
 import { filmFromApi } from '../../services/adapters/film';
 import { redirectToRoute } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
+import { useParams } from 'react-router-dom';
 
 function MovieScreen(): JSX.Element {
-  const { filmID } = useLocation().state as FilmState;
+  const { id } = useParams();
   const [film, setFilmData] = useState({} as Film);
   const [isLoadingCompleted, setLoadingCompleted] = useState(false);
-  const { pathname } = useLocation();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      await api.get(`${APIRoute.Films}/${filmID}`).then(
+      await api.get(`${APIRoute.Films}/${id}`).then(
         ({data}) => {
           setLoadingCompleted(!isLoadingCompleted);
           setFilmData(filmFromApi(data));
@@ -53,7 +51,7 @@ function MovieScreen(): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header />
+          <Header headerClass='film-card__head'/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -63,28 +61,7 @@ function MovieScreen(): JSX.Element {
                 <span className="film-card__year">{film.year}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-                { authStatus === AuthStatus.Auth &&
-                <Link
-                  className="btn film-card__button"
-                  to={`${pathname}/review`}
-                  state={{ film: film }}
-                >Add review
-                </Link> }
-              </div>
+              <FilmControls film={film}/>
             </div>
           </div>
         </div>
@@ -92,7 +69,12 @@ function MovieScreen(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterSrc} alt={`${film.title} poster`} width="218" height="327" />
+              <img
+                src={film.posterSrc}
+                alt={`${film.title} poster`}
+                width="218"
+                height="327"
+              />
             </div>
 
             <Tabs film={film}/>
@@ -100,7 +82,7 @@ function MovieScreen(): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        <SimilarFilmList filmID={filmID}/>
+        <SimilarFilmList filmID={Number(id)}/>
         <Footer />
       </div>
     </>

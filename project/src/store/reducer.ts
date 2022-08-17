@@ -1,12 +1,13 @@
 import { AuthStatus, Genre } from '../const';
 import {
   chooseGenre,
-  getFavourites,
   getFilms,
+  loadFavourite,
   loadFilms,
   loadPromo,
   requireAuth,
   saveUserAuthInfo,
+  setLoadingFavouriteStatus,
   setLoadingFilmsStatus,
   setLoadingPromoStatus,
 } from './action';
@@ -19,7 +20,7 @@ const initialState: InitialState = {
   fullFilmList: [],
   filmList: [],
   favouriteFilmList: [],
-  isLoadingCompleted: {promo: false, films: false},
+  isLoadingCompleted: {promo: false, films: false, favourite: false},
   promo: null,
   authorizationStatus: AuthStatus.Unknown,
   user: null,
@@ -38,15 +39,15 @@ const reducer = createReducer(
           ? state.fullFilmList :
           state.fullFilmList.filter((film) => film.genre === state.genre);
       })
-      .addCase(getFavourites, (state) => {
-        state.favouriteFilmList = state.fullFilmList.filter((film) => film.isFavorite);
-      })
       .addCase(loadFilms, (state, action) => {
         state.fullFilmList = action.payload;
         state.filmList = action.payload;
       })
       .addCase(loadPromo, (state, action) => {
         state.promo = action.payload;
+      })
+      .addCase(loadFavourite, (state, action) => {
+        state.favouriteFilmList = action.payload;
       })
       .addCase(setLoadingPromoStatus, (state, action) => {
         const {promo} = action.payload;
@@ -55,6 +56,10 @@ const reducer = createReducer(
       .addCase(setLoadingFilmsStatus, (state, action) => {
         const {films} = action.payload;
         state.isLoadingCompleted = {...state.isLoadingCompleted, films};
+      })
+      .addCase(setLoadingFavouriteStatus, (state, action) => {
+        const {favourite} = action.payload;
+        state.isLoadingCompleted = {...state.isLoadingCompleted, favourite};
       })
       .addCase(requireAuth, (state, action) => {
         state.authorizationStatus = action.payload;
