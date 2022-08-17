@@ -32,6 +32,11 @@ function PlayerScreen(): JSX.Element {
     browserHistory.back();
   };
 
+  const onFullScreenClick = () => {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) { elem.requestFullscreen(); }
+  };
+
   return (
     <div className="player">
       <video
@@ -76,7 +81,11 @@ function PlayerScreen(): JSX.Element {
           </button>
           <div className="player__name">Transpotting</div>
 
-          <button type="button" className="player__full-screen">
+          <button
+            type="button"
+            className="player__full-screen"
+            onClick={onFullScreenClick}
+          >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>
