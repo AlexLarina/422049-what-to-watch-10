@@ -26,8 +26,8 @@ function Tabs({film}: TabsProps): JSX.Element {
               className={activeTab === tabName ? 'film-nav__item film-nav__item--active' : 'film-nav__item'}
               key={tabName}
             >
-              <a
-                href='#'
+              <span
+                style={{cursor: 'pointer'}}
                 className="film-nav__link"
                 onClick={(e) => {
                   e.preventDefault();
@@ -35,7 +35,7 @@ function Tabs({film}: TabsProps): JSX.Element {
                 }}
               >
                 {tabName}
-              </a>
+              </span>
             </li>
           ))}
         </ul>

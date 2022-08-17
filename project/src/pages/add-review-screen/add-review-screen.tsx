@@ -29,7 +29,7 @@ function AddReviewScreen(): JSX.Element {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <span className="breadcrumbs__link">Add review</span>
               </li>
             </ul>
           </nav>
