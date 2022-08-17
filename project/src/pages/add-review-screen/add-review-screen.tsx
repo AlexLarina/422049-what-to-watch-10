@@ -21,10 +21,9 @@ function AddReviewScreen(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                {/* @TO-DO replace attr doesn't work */}
                 <Link
                   className="breadcrumbs__link"
-                  to={`films/${film.id}`}
+                  to={`/films/${film.id}`}
                   replace
                 >{film.title}
                 </Link>
