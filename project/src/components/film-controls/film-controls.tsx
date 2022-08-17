@@ -46,7 +46,16 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       <button
         className="btn btn--play film-card__button"
         type="button"
-        onClick={() => { navigate(AppRoute.Player); }}
+        onClick={() => {
+          navigate(
+            `player/${film.id}`, {
+              state: {
+                filmRef: film.videoLink,
+                poster: film.bigPosterSrc,
+              }
+            }
+          );
+        }}
       >
         <svg viewBox="0 0 19 19" width="19" height="19">
           <use xlinkHref="#play-s"></use>

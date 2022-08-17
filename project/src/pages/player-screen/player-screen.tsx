@@ -1,11 +1,42 @@
-type PlayerScreenProps = {
+import { useRef, useState } from 'react';
+
+import { useLocation } from 'react-router-dom';
+
+interface PlayerState {
   filmRef: string;
+  poster: string;
 }
 
-function PlayerScreen({filmRef}: PlayerScreenProps): JSX.Element {
+function PlayerScreen(): JSX.Element {
+  const {filmRef, poster} = useLocation().state as PlayerState;
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const onPlayerClick = () => {
+    if (videoRef.current === null) {
+      return;
+    }
+
+    if(!isPlaying) {
+      setIsPlaying(true);
+      videoRef.current.play();
+      return;
+    }
+
+    setIsPlaying(false);
+    videoRef.current.pause();
+  };
+
   return (
     <div className="player">
-      <video src={filmRef} className="player__video" poster="img/player-poster.jpg" autoPlay></video>
+      <video
+        src={filmRef}
+        ref={videoRef}
+        className="player__video"
+        poster={poster}
+        autoPlay={false}
+      >
+      </video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -19,9 +50,17 @@ function PlayerScreen({filmRef}: PlayerScreenProps): JSX.Element {
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play">
+          <button
+            type="button"
+            className="player__play"
+            onClick={onPlayerClick}
+          >
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
+              {
+                isPlaying
+                  ? <use xlinkHref="#pause"></use>
+                  : <use xlinkHref="#play-s"></use>
+              }
             </svg>
             <span>Play</span>
           </button>

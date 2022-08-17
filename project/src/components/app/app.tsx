@@ -1,7 +1,10 @@
-import { AppRoute, MOVIE_REF } from '../../const';
-import { Route, Routes } from 'react-router-dom';
+import {
+  Route,
+  Routes
+} from 'react-router-dom';
 
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
+import { AppRoute } from '../../const';
 import HistoryRouter from '../history-route/history-route';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -60,9 +63,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Player}
           element={
-            <PlayerScreen
-              filmRef={MOVIE_REF}
-            />
+            <PlayerScreen />
           }
         />
         <Route
