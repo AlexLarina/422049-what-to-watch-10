@@ -17,7 +17,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`films/${film.id}`);
+    navigate(`/films/${film.id}`);
   }
 
   function handleMouseOver() {
@@ -63,7 +63,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         {/* @TO-DO replace attr doesn't work */}
         <Link
           className="small-film-card__link"
-          to={`films/${film.id}`}
+          to={`/films/${film.id}`}
           state={{ filmID: film.id }}
           replace
         >{film.title}
