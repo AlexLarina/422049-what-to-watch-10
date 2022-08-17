@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 
 import browserHistory from '../../services/browser-history';
+import formateTime from '../../services/time';
 import { useLocation } from 'react-router-dom';
 
 interface PlayerState {
@@ -12,6 +13,8 @@ function PlayerScreen(): JSX.Element {
   const {filmRef, poster} = useLocation().state as PlayerState;
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const onPlayerClick = () => {
     if (videoRef.current === null) {
@@ -45,6 +48,12 @@ function PlayerScreen(): JSX.Element {
         className="player__video"
         poster={poster}
         autoPlay={false}
+        onLoadedMetadata={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+          setDuration(e.currentTarget.duration);
+        }}
+        onTimeUpdate={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+          setCurrentTime(e.currentTarget.currentTime);
+        }}
       >
       </video>
 
@@ -58,10 +67,21 @@ function PlayerScreen(): JSX.Element {
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+            <progress
+              className="player__progress"
+              value={Math.round(currentTime * 100 / duration) || 0}
+              max="100"
+            >
+            </progress>
+            <div
+              className="player__toggler"
+              style={{left: `${currentTime * 100 / duration }%`}}
+            >Toggler
+            </div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">
+            {formateTime(duration - currentTime)}
+          </div>
         </div>
 
         <div className="player__controls-row">

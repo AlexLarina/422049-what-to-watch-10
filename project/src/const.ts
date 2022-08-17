@@ -7,6 +7,7 @@ export const MINTUES_IN_HOUR = 60;
 export const REVIEW_MIN_LENGTH = 50;
 export const REVIEW_MAX_LENGTH = 400;
 export const CONNECT_TIMEOUT = 5000;
+export const SECONDS_IN_HOUR = 3600;
 
 export enum AppRoute {
   Root = '/',
