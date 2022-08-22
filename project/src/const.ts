@@ -1,5 +1,6 @@
 export const BASE_URL = 'https://10.react.pages.academy/wtw';
 export const SHOWN_FILM_LIMIT = 8;
+export const SIMILAR_FILM_LIMIT = 4;
 export const MAX_RATE = 10;
 export const MAX_GENRE_SHOWN = 9;
 export const PREVIEW_TIMEOUT = 1000;
