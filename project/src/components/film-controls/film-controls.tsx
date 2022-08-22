@@ -48,7 +48,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
         type="button"
         onClick={() => {
           navigate(
-            `player/${film.id}`, {
+            `/player/${film.id}`, {
               state: {
                 filmRef: film.videoLink,
                 poster: film.bigPosterSrc,
