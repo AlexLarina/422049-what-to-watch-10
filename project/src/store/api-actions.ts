@@ -23,8 +23,8 @@ import { AuthData } from '../types/auth-data';
 import { AxiosInstance } from 'axios';
 import Film from '../types/film';
 import { UserData } from '../types/user-data';
+import { adaptFilmFromApi } from '../services/adapters/film';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { filmFromApi } from '../services/adapters/film';
 
 type thunkOptions = {
   dispatch: AppDispatch,
@@ -37,7 +37,7 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, thunkOptions>(
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Films);
     dispatch(setLoadingFilmsStatus({films: true}));
-    const adaptedFilmList = data.map((filmData: ApiFilm) => filmFromApi(filmData));
+    const adaptedFilmList = data.map((filmData: ApiFilm) => adaptFilmFromApi(filmData));
     dispatch(loadFilms(adaptedFilmList));
   },
 );
@@ -47,7 +47,7 @@ export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
     dispatch(setLoadingPromoStatus({promo: true}));
-    dispatch(loadPromo(filmFromApi(data)));
+    dispatch(loadPromo(adaptFilmFromApi(data)));
   },
 );
 
@@ -55,7 +55,7 @@ export const fetchFavouriteAction = createAsyncThunk<void, undefined, thunkOptio
   'data/fetchFavourite',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Favourite);
-    const adaptedFavouriteFilmList = data.map((filmData: ApiFilm) => filmFromApi(filmData));
+    const adaptedFavouriteFilmList = data.map((filmData: ApiFilm) => adaptFilmFromApi(filmData));
     dispatch(setLoadingFavouriteStatus({favourite: true}));
     dispatch(loadFavourite(adaptedFavouriteFilmList));
   },

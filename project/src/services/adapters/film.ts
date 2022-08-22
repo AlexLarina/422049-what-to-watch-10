@@ -1,7 +1,7 @@
 import { ApiFilm } from '../../types/api';
 import Film from '../../types/film';
 
-export const filmFromApi = (apiFilm: ApiFilm) => {
+export const adaptFilmFromApi = (apiFilm: ApiFilm) => {
   const film = {
     title: apiFilm.name,
     posterSrc: apiFilm.posterImage,
