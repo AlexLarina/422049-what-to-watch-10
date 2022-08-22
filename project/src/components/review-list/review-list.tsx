@@ -17,12 +17,11 @@ function ReviewList({filmID}: ReviewListProps): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       const {data} = await api.get<ApiReview[]>(`${APIRoute.Comments}/${filmID}`);
-      setLoadingCompleted(!isLoadingCompleted);
+      setLoadingCompleted(true);
       setReviews(data);
     };
-
     fetchData();
-  }, []);
+  }, [filmID]);
 
   if (!isLoadingCompleted) {
     return <p>Data loading...</p>;
