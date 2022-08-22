@@ -14,7 +14,7 @@ const validateEmail = (email: string) => email
   );
 
 const validatePassword = (password: string) => password
-  .match(/(.+\d+)|(\d+.+)/gm);
+  .match(/([a-zA-Z]+\d+)|(\d+[a-zA-Z]+)/gm);
 
 function LoginScreen(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
