@@ -30,12 +30,22 @@ describe('Reducer', () => {
     expect(reducer(state, chooseGenre({genre: mockGenre})))
       .toEqual({...state, genre: mockGenre});
   });
-  // // getFilms - All genre,
-  // it('should set a full filmlist to state filmList field when All genres chosen', () => {
-  //   const films = new Array(FILM_AMOUNT).fill(makeFakeFilm());
-  //   expect(reducer(state, getFilms()))
-  //     .toEqual({...state, fullFilmList: films});
-  // });
+  // getFilms - All genre,
+  it('should set a full filmlist to state filmList field when All genres chosen', () => {
+    const films = new Array(FILM_AMOUNT).fill(makeFakeFilm());
+    state = {...state, fullFilmList: films};
+    expect(reducer(state, getFilms()))
+      .toEqual({...state, filmList: films});
+  });
+  // getFilms - Particular genre,
+  it('should set a filtered filmlist to state filmList field when particular genre chosen', () => {
+    const films = new Array(FILM_AMOUNT).fill(makeFakeFilm());
+    const someGenre = films[0].genre;
+    const filteredFilmsByGenre = films.filter((film) => film.genre === someGenre);
+    state = {...state, fullFilmList: films, genre: someGenre};
+    expect(reducer(state, getFilms()))
+      .toEqual({...state, filmList: filteredFilmsByGenre});
+  });
   // loadFavourite,
   it('should set a given film array to state favouriteFilmList field', () => {
     const favourites = new Array(20).fill(makeFakeFilm()).filter((film) => film.isFavorite);
