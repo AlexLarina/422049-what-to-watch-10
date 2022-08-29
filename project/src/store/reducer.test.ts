@@ -1,12 +1,21 @@
-import { chooseGenre, getFilms, loadFavourite, loadFilms, loadPromo, requireAuth, saveUserAuthInfo, setLoadingFavouriteStatus, setLoadingFilmsStatus, setLoadingPromoStatus } from './action';
+import { AuthStatus, FILM_MOCK_AMOUNT } from '../const';
+import {
+  chooseGenre,
+  getFilms,
+  loadFavourite,
+  loadFilms,
+  loadPromo,
+  requireAuth,
+  saveUserAuthInfo,
+  setLoadingFavouriteStatus,
+  setLoadingFilmsStatus,
+  setLoadingPromoStatus
+} from './action';
 import { makeFakeFilm, makeFakeUser } from '../test/mocks';
 
-import { AuthStatus } from '../const';
 import { Genre } from '../const';
 import { InitialState } from '../types/state';
 import { reducer } from './reducer';
-
-const FILM_AMOUNT = 1;
 
 describe('Reducer', () => {
   let state: InitialState;
@@ -32,14 +41,14 @@ describe('Reducer', () => {
   });
   // getFilms - All genre,
   it('should set a full filmlist to state filmList field when All genres chosen', () => {
-    const films = new Array(FILM_AMOUNT).fill(makeFakeFilm());
+    const films = new Array(FILM_MOCK_AMOUNT).fill(makeFakeFilm());
     state = {...state, fullFilmList: films};
     expect(reducer(state, getFilms()))
       .toEqual({...state, filmList: films});
   });
   // getFilms - Particular genre,
   it('should set a filtered filmlist to state filmList field when particular genre chosen', () => {
-    const films = new Array(FILM_AMOUNT).fill(makeFakeFilm());
+    const films = new Array(FILM_MOCK_AMOUNT).fill(makeFakeFilm());
     const someGenre = films[0].genre;
     const filteredFilmsByGenre = films.filter((film) => film.genre === someGenre);
     state = {...state, fullFilmList: films, genre: someGenre};
@@ -54,7 +63,7 @@ describe('Reducer', () => {
   });
   // loadFilms,
   it('should set a given film array to state filmList and fullFilmList fields', () => {
-    const films = new Array(FILM_AMOUNT).fill(makeFakeFilm());
+    const films = new Array(FILM_MOCK_AMOUNT).fill(makeFakeFilm());
     expect(reducer(state, loadFilms(films)))
       .toEqual({...state, filmList: films, fullFilmList: films});
   });
