@@ -17,6 +17,7 @@ import { useAppSelector } from '../../hooks';
 function App(): JSX.Element {
   const {isLoadingCompleted} = useAppSelector((state) => state);
 
+  // @TO-DO - переписать на проверку всех ключей
   if (!isLoadingCompleted) {
     return (
       <p>Данные загружаются...</p>
