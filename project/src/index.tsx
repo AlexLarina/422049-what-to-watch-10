@@ -7,10 +7,12 @@ import {
 } from './store/api-actions';
 
 import App from './components/app/app';
+import HistoryRouter from './components/history-route/history-route';
 import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
+import browserHistory from './services/browser-history';
 import { store } from './store/index';
 
 store.dispatch(fetchPromoAction());
@@ -24,8 +26,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer />
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <ToastContainer />
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );
