@@ -20,7 +20,7 @@ function FilmList({filmData}: FilmListProps): JSX.Element {
 
   return (
     <>
-      <div className="catalog__films-list">
+      <div className="catalog__films-list" data-testid="catalog__films-list">
         {
           filmData.slice(0, countShown).map((film: Film) => (
             <FilmCard
