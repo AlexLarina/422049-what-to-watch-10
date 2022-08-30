@@ -3,7 +3,8 @@ import {
   screen
 } from '@testing-library/react';
 
-import FilmCard from './film-card';
+import { AuthStatus } from '../../const';
+import FilmControls from './film-controls';
 import HistoryRouter from '../history-route/history-route';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -12,18 +13,25 @@ import { makeFakeFilm } from '../../test/mocks';
 
 const mockStore = configureMockStore();
 
-describe('Component: FilmCard', () => {
+describe('Component: FilmControls', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
     const film = makeFakeFilm();
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={
+        mockStore({
+          favouriteFilmList: new Array(3),
+          authStatus: AuthStatus.Auth
+        })
+      }
+      >
         <HistoryRouter history={history}>
-          <FilmCard film={film} onFilmCardHover={jest.fn()} />
+          <FilmControls film={film}/>
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByAltText(film.title)).toBeInTheDocument();
+    expect(screen.getByText('Play')).toBeInTheDocument();
+    expect(screen.getByText('My list')).toBeInTheDocument();
   });
 });
