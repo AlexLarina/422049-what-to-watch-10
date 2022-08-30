@@ -61,7 +61,7 @@ function PlayerScreen(): JSX.Element {
         ref={videoRef}
         className="player__video"
         poster={poster}
-        autoPlay={false}
+        autoPlay
         onLoadedMetadata={(e: React.SyntheticEvent<HTMLVideoElement>) => {
           setDuration(e.currentTarget.duration);
         }}
@@ -73,6 +73,7 @@ function PlayerScreen(): JSX.Element {
         }}
         onLoadedData={() => {
           setIsLoading(false);
+          setIsPlaying(true);
         }}
       >
       </video>

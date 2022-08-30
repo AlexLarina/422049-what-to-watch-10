@@ -9,9 +9,9 @@ import {
 import { useEffect, useState } from 'react';
 
 import RatePoint from '../rate-point/rate-point';
+import { adaptReviewToApi } from '../../services/adapters/review';
 import api from '../../services/api';
 import { redirectToRoute } from '../../store/action';
-import { reviewToApi } from '../../services/adapters/review';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../../hooks';
 
@@ -50,7 +50,7 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
   };
 
   const postReviewData = async () => {
-    const payload = reviewToApi(formData);
+    const payload = adaptReviewToApi(formData);
     setProcessSubmit(true);
 
     await api.post(`${APIRoute.Comments}/${filmID}`, payload)

@@ -8,8 +8,8 @@ import Header from '../../components/header/header';
 import SimilarFilmList from '../../components/similar-film-list/similar-film-list';
 import { StatusCodes } from 'http-status-codes';
 import Tabs from '../../components/tabs/tabs';
+import { adaptFilmFromApi } from '../../services/adapters/film';
 import api from '../../services/api';
-import { filmFromApi } from '../../services/adapters/film';
 import { redirectToRoute } from '../../store/action';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
@@ -25,7 +25,7 @@ function MovieScreen(): JSX.Element {
       await api.get(`${APIRoute.Films}/${id}`).then(
         ({data}) => {
           setLoadingCompleted(true);
-          setFilmData(filmFromApi(data));
+          setFilmData(adaptFilmFromApi(data));
         },
         (error) => {
           if (error.response.status === StatusCodes.NOT_FOUND) {

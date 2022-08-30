@@ -1,11 +1,11 @@
+import { APIRoute, SIMILAR_FILM_LIMIT } from '../../const';
 import { useEffect, useState } from 'react';
 
-import { APIRoute } from '../../const';
 import { ApiFilm } from '../../types/api';
 import Film from '../../types/film';
 import FilmList from '../film-list/film-list';
+import { adaptFilmFromApi } from '../../services/adapters/film';
 import api from '../../services/api';
-import { filmFromApi } from '../../services/adapters/film';
 
 type SimilarFilmListProps = {
   filmID: number;
@@ -19,7 +19,8 @@ function SimilarFilmList({filmID}: SimilarFilmListProps): JSX.Element {
       const {data} = await api.get<ApiFilm[]>(`${APIRoute.Films}/${filmID}/similar`);
       const similarFilms = data
         .filter((similarFilm) => similarFilm.id !== filmID)
-        .map((similarFilm) => filmFromApi(similarFilm));
+        .slice(0, SIMILAR_FILM_LIMIT)
+        .map((similarFilm) => adaptFilmFromApi(similarFilm));
       setLoadingCompleted(!isLoadingCompleted);
       setFilms(similarFilms);
     };

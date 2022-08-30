@@ -9,20 +9,17 @@ type ReviewListProps = {
   filmID: number;
 };
 
-const getCommentsMiddleIndex = (comments: ApiReview[]) => (comments.length / 2) + 1;
-
 function ReviewList({filmID}: ReviewListProps): JSX.Element {
   const [reviews, setReviews] = useState([] as ApiReview[]);
   const [isLoadingCompleted, setLoadingCompleted] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const {data} = await api.get<ApiReview[]>(`${APIRoute.Comments}/${filmID}`);
-      setLoadingCompleted(!isLoadingCompleted);
+      setLoadingCompleted(true);
       setReviews(data);
     };
-
     fetchData();
-  }, []);
+  }, [filmID]);
 
   if (!isLoadingCompleted) {
     return <p>Data loading...</p>;
@@ -35,13 +32,11 @@ function ReviewList({filmID}: ReviewListProps): JSX.Element {
         <>
           <div className="film-card__reviews-col">
             {reviews
-              .slice(0, getCommentsMiddleIndex(reviews))
-              .map((review) => <Review review={review} key={`review-${review.id}`} />)}
+              .map((review, i) => (i % 2 === 0) && <Review review={review} key={`review-${review.id}`} />)}
           </div>
           <div className="film-card__reviews-col">
             {reviews
-              .slice(getCommentsMiddleIndex(reviews))
-              .map((review) => <Review review={review} key={`review-${review.id}`} />)}
+              .map((review, i) => (i % 2 !== 0) && <Review review={review} key={`review-${review.id}`} />)}
           </div>
         </>
         : <p>No reviews yet ... </p>}

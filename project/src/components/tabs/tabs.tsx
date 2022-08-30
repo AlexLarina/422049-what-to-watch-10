@@ -23,7 +23,11 @@ function Tabs({film}: TabsProps): JSX.Element {
         <ul className="film-nav__list">
           {Object.keys(TabNames).map((tabName) => (
             <li
-              className={activeTab === tabName ? 'film-nav__item film-nav__item--active' : 'film-nav__item'}
+              className={
+                activeTab === tabName
+                  ? 'film-nav__item film-nav__item--active'
+                  : 'film-nav__item'
+              }
               key={tabName}
             >
               <span
