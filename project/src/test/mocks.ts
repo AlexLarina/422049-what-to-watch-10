@@ -8,6 +8,7 @@ import {
   random
 } from 'faker';
 
+import { ApiReview } from '../types/api';
 import Film from '../types/film';
 import { UserData } from '../types/user-data';
 
@@ -18,7 +19,7 @@ enum ID {
 
 enum Rate {
   MIN = 1,
-  MAX = 100,
+  MAX = 10,
 }
 
 enum RunTime {
@@ -57,3 +58,14 @@ export const makeFakeUser = (): UserData => ({
   token: random.alphaNumeric(10),
   avatarUrl: image.imageUrl(),
 } as UserData);
+
+export const makeFakeReview = (): ApiReview => ({
+  comment: lorem.paragraph(),
+  date: date.recent().toString(),
+  id: Math.round(Math.random() * (ID.MAX - ID.MIN)),
+  rating: Math.round(Math.random() * (Rate.MAX - Rate.MIN)),
+  user: {
+    id: Math.round(Math.random() * (ID.MAX - ID.MIN)),
+    name: createFakeName(),
+  }
+} as ApiReview);

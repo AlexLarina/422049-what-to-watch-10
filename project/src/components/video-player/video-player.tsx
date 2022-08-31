@@ -30,6 +30,7 @@ function VideoPlayer({posterSrc, src, startPlaying}: VideoPlayerProps): JSX.Elem
       width="280"
       height="174"
       muted
+      data-testid="film-card-video-element"
     >
     </video>
   );
