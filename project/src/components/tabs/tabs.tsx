@@ -19,7 +19,7 @@ function Tabs({film}: TabsProps): JSX.Element {
 
   return (
     <div className="film-card__desc">
-      <nav className="film-nav film-card__nav">
+      <nav className="film-nav film-card__nav" data-testid="film-nav">
         <ul className="film-nav__list">
           {Object.keys(TabNames).map((tabName) => (
             <li
