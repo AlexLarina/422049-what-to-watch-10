@@ -13,9 +13,6 @@ import { AxiosInstance } from 'axios';
 import Film from '../types/film';
 import { UserData } from '../types/user-data';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  saveUserAuthInfo,
-} from './action';
 
 type thunkOptions = {
   dispatch: AppDispatch,
@@ -52,15 +49,13 @@ export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
   async (_arg, {dispatch, extra: api}) => await api.get(APIRoute.Login)
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
+export const loginAction = createAsyncThunk<UserData, AuthData, thunkOptions>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    await api.post<UserData>(APIRoute.Login, {email, password})
-      .then(({data}) => {
-        dispatch(saveUserAuthInfo(data));
-        saveToken(data.token);
-        dispatch(fetchFavouriteAction());
-      });
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
+    dispatch(fetchFavouriteAction());
+    return data;
   }
 );
 
