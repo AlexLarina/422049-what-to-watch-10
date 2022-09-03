@@ -3,16 +3,13 @@ import Film from './film';
 import { UserData } from './user-data';
 import {store} from '../store/index';
 
-export type InitialState = {
-  genre: string;
-}
-
 export type UserProcess = {
   authorizationStatus: AuthStatus,
   user: UserData | null;
 };
 
-export type DataProcess = {
+export type FilmProcess = {
+  genre: string;
   fullFilmList: Film[];
   filmList: Film[];
   favouriteFilmList: Film[];

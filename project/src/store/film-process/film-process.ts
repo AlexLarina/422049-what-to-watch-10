@@ -1,12 +1,13 @@
+import { Genre, NameSpace } from '../../const';
 import { fetchFavouriteAction, fetchFilmsAction, fetchPromoAction } from '../api-actions';
 
 import { ApiFilm } from '../../types/api';
-import { DataProcess } from '../../types/state';
-import { NameSpace } from '../../const';
+import { FilmProcess } from '../../types/state';
 import { adaptFilmFromApi } from '../../services/adapters/film';
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState: DataProcess = {
+const initialState: FilmProcess = {
+  genre: Genre.All,
   fullFilmList: [],
   filmList: [],
   favouriteFilmList: [],
@@ -14,10 +15,19 @@ const initialState: DataProcess = {
   promo: null,
 };
 
-export const gameData = createSlice({
+export const filmProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    chooseGenre: (state, action) => {
+      state.genre = action.payload;
+    },
+    getFilms: (state) => {
+      state.filmList = state.genre === Genre.All
+        ? state.fullFilmList :
+        state.fullFilmList.filter((film) => film.genre === state.genre);
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
@@ -39,3 +49,5 @@ export const gameData = createSlice({
       });
   }
 });
+
+export const {chooseGenre, getFilms} = filmProcess.actions;
