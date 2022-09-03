@@ -1,7 +1,6 @@
 import {
   chooseGenre,
   getFilms,
-  saveUserAuthInfo,
 } from './action';
 
 import { Genre } from '../const';
@@ -10,7 +9,6 @@ import { createReducer } from '@reduxjs/toolkit';
 
 const initialState: InitialState = {
   genre: Genre.All,
-  user: null,
 };
 
 const reducer = createReducer(
@@ -26,9 +24,6 @@ const reducer = createReducer(
           ? state.fullFilmList :
           state.fullFilmList.filter((film) => film.genre === state.genre);
       })
-      .addCase(saveUserAuthInfo, (state, action) => {
-        state.user = action.payload;
-      });
   }
 );
 

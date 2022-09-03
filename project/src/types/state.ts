@@ -5,11 +5,11 @@ import {store} from '../store/index';
 
 export type InitialState = {
   genre: string;
-  user: UserData | null;
 }
 
 export type UserProcess = {
-  authorizationStatus: AuthStatus
+  authorizationStatus: AuthStatus,
+  user: UserData | null;
 };
 
 export type DataProcess = {

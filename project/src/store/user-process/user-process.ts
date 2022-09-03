@@ -6,12 +6,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthStatus.Unknown,
+  user: null,
 };
 
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
-  reducers: {},
+  reducers: {
+    saveUserAuthInfo: (state, action) => {
+      state.user = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(checkAuthAction.fulfilled, (state) => {
@@ -31,3 +36,5 @@ export const userProcess = createSlice({
       });
   },
 });
+
+export const {saveUserAuthInfo} = userProcess.actions;
