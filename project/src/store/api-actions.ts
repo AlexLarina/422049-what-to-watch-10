@@ -1,4 +1,3 @@
-import { APIRoute, AuthStatus } from '../const';
 import {
   AppDispatch,
   State
@@ -7,23 +6,16 @@ import {
   dropToken,
   saveToken
 } from '../services/token';
-import {
-  loadFavourite,
-  loadFilms,
-  loadPromo,
-  saveUserAuthInfo,
-  setLoadingFavouriteStatus,
-  setLoadingFilmsStatus,
-  setLoadingPromoStatus,
-} from './action';
 
-import { ApiFilm } from '../types/api';
+import { APIRoute } from '../const';
 import { AuthData } from '../types/auth-data';
 import { AxiosInstance } from 'axios';
 import Film from '../types/film';
 import { UserData } from '../types/user-data';
-import { adaptFilmFromApi } from '../services/adapters/film';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  saveUserAuthInfo,
+} from './action';
 
 type thunkOptions = {
   dispatch: AppDispatch,
@@ -31,32 +23,27 @@ type thunkOptions = {
   extra: AxiosInstance,
 };
 
-export const fetchFilmsAction = createAsyncThunk<void, undefined, thunkOptions>(
+export const fetchFilmsAction = createAsyncThunk<Film[], undefined, thunkOptions>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Films);
-    dispatch(setLoadingFilmsStatus({films: true}));
-    const adaptedFilmList = data.map((filmData: ApiFilm) => adaptFilmFromApi(filmData));
-    dispatch(loadFilms(adaptedFilmList));
+    return data;
   },
 );
 
-export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
+export const fetchPromoAction = createAsyncThunk<Film, undefined, thunkOptions>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
-    dispatch(setLoadingPromoStatus({promo: true}));
-    dispatch(loadPromo(adaptFilmFromApi(data)));
+    return data;
   },
 );
 
-export const fetchFavouriteAction = createAsyncThunk<void, undefined, thunkOptions>(
+export const fetchFavouriteAction = createAsyncThunk<Film[], undefined, thunkOptions>(
   'data/fetchFavourite',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Favourite);
-    const adaptedFavouriteFilmList = data.map((filmData: ApiFilm) => adaptFilmFromApi(filmData));
-    dispatch(setLoadingFavouriteStatus({favourite: true}));
-    dispatch(loadFavourite(adaptedFavouriteFilmList));
+    return data;
   },
 );
 
