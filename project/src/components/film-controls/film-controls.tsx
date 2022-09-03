@@ -19,7 +19,11 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [isFavourite, setFavourite] = useState(film.isFavorite);
+  const [isFavourite, setFavourite] = useState(
+    authStatus === AuthStatus.Auth
+      ? film.isFavorite
+      : false
+  );
   const [statusChanged, setStatusChanged] = useState(false);
 
   const onFavouriteClick = () => {
@@ -41,7 +45,9 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
 
     if(statusChanged) { changeFilmStatus(); }
 
-  }, [statusChanged]);
+    if (authStatus === AuthStatus.NotAuth) { setFavourite(false); }
+
+  }, [statusChanged, authStatus]);
 
   return (
     <div className="film-card__buttons">
@@ -72,7 +78,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       >
         <svg viewBox="0 0 19 20" width="19" height="20">
           {
-            (isFavourite || film.isFavorite)
+            (isFavourite)
               ? <use xlinkHref="#in-list"></use>
               : <use xlinkHref="#add"></use>
           }
