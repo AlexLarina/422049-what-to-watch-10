@@ -16,7 +16,7 @@ const initialState: FilmProcess = {
 };
 
 export const filmProcess = createSlice({
-  name: NameSpace.Data,
+  name: NameSpace.Film,
   initialState,
   reducers: {
     chooseGenre: (state, action) => {
