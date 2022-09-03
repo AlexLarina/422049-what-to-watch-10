@@ -29,7 +29,7 @@ export const fetchFilmsAction = createAsyncThunk<Film[], undefined, thunkOptions
 );
 
 export const fetchPromoAction = createAsyncThunk<Film, undefined, thunkOptions>(
-  'data/fetchFilms',
+  'data/fetchPromo',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
     return data;

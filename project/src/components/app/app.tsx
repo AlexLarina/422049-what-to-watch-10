@@ -16,10 +16,9 @@ import { getLoadingStatus } from '../../store/film-process/selectors';
 import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
-  const isLoadingCompleted = useAppSelector(getLoadingStatus);
+  const loadingStatuses = useAppSelector(getLoadingStatus);
 
-  // @TO-DO - переписать на проверку всех ключей
-  if (!isLoadingCompleted) {
+  if (!loadingStatuses.promo || !loadingStatuses.films) {
     return (
       <p>Данные загружаются...</p>
     );
