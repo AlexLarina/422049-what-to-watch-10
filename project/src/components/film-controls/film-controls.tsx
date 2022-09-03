@@ -40,6 +40,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
     };
 
     if(statusChanged) { changeFilmStatus(); }
+
   }, [statusChanged]);
 
   return (
