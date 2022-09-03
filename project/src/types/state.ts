@@ -1,3 +1,4 @@
+import { AuthStatus } from '../const';
 import Film from './film';
 import { UserData } from './user-data';
 import {store} from '../store/index';
@@ -12,6 +13,10 @@ export type InitialState = {
   authorizationStatus: string;
   user: UserData | null;
 }
+
+export type UserProcess = {
+  authorizationStatus: AuthStatus
+};
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -5,7 +5,6 @@ import {
   loadFavourite,
   loadFilms,
   loadPromo,
-  requireAuth,
   saveUserAuthInfo,
   setLoadingFavouriteStatus,
   setLoadingFilmsStatus,
@@ -60,9 +59,6 @@ const reducer = createReducer(
       .addCase(setLoadingFavouriteStatus, (state, action) => {
         const {favourite} = action.payload;
         state.isLoadingCompleted = {...state.isLoadingCompleted, favourite};
-      })
-      .addCase(requireAuth, (state, action) => {
-        state.authorizationStatus = action.payload;
       })
       .addCase(saveUserAuthInfo, (state, action) => {
         state.user = action.payload;

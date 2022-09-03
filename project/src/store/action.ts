@@ -1,4 +1,3 @@
-import { AuthStatus } from '../const';
 import Film from '../types/film';
 import { UserData } from '../types/user-data';
 import { createAction } from '@reduxjs/toolkit';
@@ -18,8 +17,6 @@ export const setLoadingPromoStatus = createAction<{promo: boolean}>('data/loadin
 export const setLoadingFilmsStatus = createAction<{films: boolean}>('data/loadingFilmsStatus');
 
 export const setLoadingFavouriteStatus = createAction<{favourite: boolean}>('data/loadingFavouriteStatus');
-
-export const requireAuth = createAction<AuthStatus>('user/requireAuth');
 
 export const saveUserAuthInfo = createAction<UserData>('user/saveAuthInfo');
 

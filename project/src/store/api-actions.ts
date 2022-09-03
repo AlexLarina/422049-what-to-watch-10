@@ -11,7 +11,6 @@ import {
   loadFavourite,
   loadFilms,
   loadPromo,
-  requireAuth,
   saveUserAuthInfo,
   setLoadingFavouriteStatus,
   setLoadingFilmsStatus,
@@ -63,17 +62,7 @@ export const fetchFavouriteAction = createAsyncThunk<void, undefined, thunkOptio
 
 export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
   'user/requireAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    await api.get(APIRoute.Login)
-      .then(
-        ({data}) => {
-          dispatch(requireAuth(AuthStatus.Auth));
-          dispatch(saveUserAuthInfo(data));
-        },
-        () => {
-          dispatch(requireAuth(AuthStatus.NotAuth));
-        });
-  }
+  async (_arg, {dispatch, extra: api}) => await api.get(APIRoute.Login)
 );
 
 export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
@@ -81,7 +70,6 @@ export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
   async ({email, password}, {dispatch, extra: api}) => {
     await api.post<UserData>(APIRoute.Login, {email, password})
       .then(({data}) => {
-        dispatch(requireAuth(AuthStatus.Auth));
         dispatch(saveUserAuthInfo(data));
         saveToken(data.token);
         dispatch(fetchFavouriteAction());
@@ -94,6 +82,5 @@ export const logoutAction = createAsyncThunk<void, undefined, thunkOptions>(
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireAuth(AuthStatus.NotAuth));
   }
 );

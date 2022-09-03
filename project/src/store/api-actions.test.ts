@@ -11,7 +11,6 @@ import {
   loadFavourite,
   loadFilms,
   loadPromo,
-  requireAuth,
   saveUserAuthInfo,
   setLoadingFavouriteStatus,
   setLoadingFilmsStatus,
@@ -52,7 +51,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       checkAuthAction.pending.type,
-      requireAuth.type,
+      // requireAuth.type,
       saveUserAuthInfo.type,
       checkAuthAction.fulfilled.type
     ]);
@@ -76,7 +75,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       loginAction.pending.type,
-      requireAuth.type,
+      // requireAuth.type,
       saveUserAuthInfo.type,
       fetchFavouriteAction.pending.type,
       loginAction.fulfilled.type
@@ -101,7 +100,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       logoutAction.pending.type,
-      requireAuth.type,
+      // requireAuth.type,
       logoutAction.fulfilled.type
     ]);
 
