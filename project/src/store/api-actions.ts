@@ -44,9 +44,12 @@ export const fetchFavouriteAction = createAsyncThunk<Film[], undefined, thunkOpt
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
+export const checkAuthAction = createAsyncThunk<UserData, undefined, thunkOptions>(
   'user/requireAuth',
-  async (_arg, {dispatch, extra: api}) => await api.get(APIRoute.Login)
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get(APIRoute.Login);
+    return data;
+  }
 );
 
 export const loginAction = createAsyncThunk<UserData, AuthData, thunkOptions>(
