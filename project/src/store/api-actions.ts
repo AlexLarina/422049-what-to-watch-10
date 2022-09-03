@@ -48,6 +48,7 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, thunkOption
   'user/requireAuth',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get(APIRoute.Login);
+    dispatch(fetchFavouriteAction());
     return data;
   }
 );
