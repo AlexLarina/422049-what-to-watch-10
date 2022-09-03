@@ -1,7 +1,7 @@
 import { Genre, MAX_GENRE_SHOWN } from '../../const';
-import { chooseGenre, getFilms } from '../../store/film-process/film-process';
 
 import Film from '../../types/film';
+import { chooseGenre } from '../../store/film-process/film-process';
 import { useAppDispatch } from '../../hooks';
 import { useState } from 'react';
 
@@ -30,8 +30,7 @@ function GenreList({filmData}: GenreListProps): JSX.Element {
             className="catalog__genres-link"
             onClick={(e) => {
               e.preventDefault();
-              dispatch(chooseGenre({genre}));
-              dispatch(getFilms());
+              dispatch(chooseGenre(genre));
               setActiveGenre(genre);
             }}
           >

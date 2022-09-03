@@ -1,15 +1,25 @@
-import { getAllFilms, getFilms } from '../../store/film-process/selectors';
+import React, { useEffect, useState } from 'react';
+import { getFilms, getGenre } from '../../store/film-process/selectors';
 
 import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 import Footer from '../../components/footer/footer';
+import { Genre } from '../../const';
 import GenreList from '../../components/genre-list/genre-list';
-import React from 'react';
 import { useAppSelector } from '../../hooks/index';
 
 function MainScreen(): JSX.Element {
   const filmList = useAppSelector(getFilms);
-  const fullFilmList = useAppSelector(getAllFilms);
+  const currentGenre = useAppSelector(getGenre);
+  const [films, setFilms] = useState(filmList);
+  // const fullFilmList = useAppSelector(getAllFilms);
+  useEffect(() => {
+    const filmsByGenre = (currentGenre === Genre.All)
+      ? filmList
+      : filmList.filter((film) => film.genre === currentGenre);
+
+    setFilms(filmsByGenre);
+  }, [currentGenre]);
 
   return (
     <React.Fragment>
@@ -18,9 +28,9 @@ function MainScreen(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList filmData={fullFilmList}/>
+          <GenreList filmData={filmList}/>
 
-          <FilmList filmData={filmList} />
+          <FilmList filmData={films} />
         </section>
 
         <Footer />

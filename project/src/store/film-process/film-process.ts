@@ -8,7 +8,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: FilmProcess = {
   genre: Genre.All,
-  fullFilmList: [],
   filmList: [],
   favouriteFilmList: [],
   isLoadingCompleted: {promo: false, films: false, favourite: false},
@@ -22,10 +21,11 @@ export const filmProcess = createSlice({
     chooseGenre: (state, action) => {
       state.genre = action.payload;
     },
-    getFilms: (state) => {
-      state.filmList = state.genre === Genre.All
-        ? state.fullFilmList :
-        state.fullFilmList.filter((film) => film.genre === state.genre);
+    getFilms: (state, action) => {
+      // @TO-DO удалить это нафиг
+      // state.filmList = state.genre === Genre.All
+      //   ? state.fullFilmList :
+      //   state.fullFilmList.filter((film) => film.genre === state.genre);
     }
   },
   extraReducers(builder) {
@@ -34,7 +34,6 @@ export const filmProcess = createSlice({
         state.isLoadingCompleted.films = true;
         const adaptedFilmList = action.payload
           .map((filmData: ApiFilm) => adaptFilmFromApi(filmData));
-        state.fullFilmList = adaptedFilmList;
         state.filmList = adaptedFilmList;
       })
       .addCase(fetchPromoAction.fulfilled, (state, action) => {

@@ -25,7 +25,3 @@ export const getFavourites = (state: State): Film[] => (
 export const getFilms = (state: State): Film[] => (
   state[NameSpace.Film].filmList
 );
-
-export const getAllFilms = (state: State): Film[] => (
-  state[NameSpace.Film].fullFilmList
-);

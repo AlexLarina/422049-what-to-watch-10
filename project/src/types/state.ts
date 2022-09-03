@@ -10,7 +10,6 @@ export type UserProcess = {
 
 export type FilmProcess = {
   genre: string;
-  fullFilmList: Film[];
   filmList: Film[];
   favouriteFilmList: Film[];
   promo: Film | null;
