@@ -1,9 +1,8 @@
-// fullFilmList: [],
-// filmList: [],
+import { Genre, NameSpace } from '../../const';
 
 import Film from '../../types/film';
-import { NameSpace } from '../../const';
 import { State } from '../../types/state';
+import { createSelector } from 'reselect';
 
 export const getGenre = (state: State): string => (
   state[NameSpace.Film].genre
@@ -24,4 +23,17 @@ export const getFavourites = (state: State): Film[] => (
 
 export const getFilms = (state: State): Film[] => (
   state[NameSpace.Film].filmList
+);
+
+export const getFilmsByGenre = (state: State): Film[] => (
+  state[NameSpace.Film].filmsByGenre
+);
+
+export const filterFilms = createSelector(
+  [getFilms, getGenre],
+  (films, genre) => {
+    if (genre === Genre.All) { return films; }
+
+    return films.filter(((film) => film.genre === genre));
+  }
 );

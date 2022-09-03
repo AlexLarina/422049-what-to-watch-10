@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { getFilms, getGenre } from '../../store/film-process/selectors';
+import { filterFilms, getFilms, getGenre } from '../../store/film-process/selectors';
 
 import FilmList from '../../components/film-list/film-list';
 import FilmPromo from '../../components/film-promo/film-promo';
 import Footer from '../../components/footer/footer';
-import { Genre } from '../../const';
 import GenreList from '../../components/genre-list/genre-list';
 import { useAppSelector } from '../../hooks/index';
 
 function MainScreen(): JSX.Element {
   const filmList = useAppSelector(getFilms);
   const currentGenre = useAppSelector(getGenre);
+  const filmsByGenre = useAppSelector(filterFilms);
   const [films, setFilms] = useState(filmList);
-  // const fullFilmList = useAppSelector(getAllFilms);
-  useEffect(() => {
-    const filmsByGenre = (currentGenre === Genre.All)
-      ? filmList
-      : filmList.filter((film) => film.genre === currentGenre);
 
+  useEffect(() => {
     setFilms(filmsByGenre);
   }, [currentGenre]);
 

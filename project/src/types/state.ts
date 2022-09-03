@@ -11,6 +11,7 @@ export type UserProcess = {
 export type FilmProcess = {
   genre: string;
   filmList: Film[];
+  filmsByGenre: Film[];
   favouriteFilmList: Film[];
   promo: Film | null;
   isLoadingCompleted: {promo: boolean, films: boolean, favourite: boolean};

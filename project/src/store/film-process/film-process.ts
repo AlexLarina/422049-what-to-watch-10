@@ -10,6 +10,7 @@ const initialState: FilmProcess = {
   genre: Genre.All,
   filmList: [],
   favouriteFilmList: [],
+  filmsByGenre: [],
   isLoadingCompleted: {promo: false, films: false, favourite: false},
   promo: null,
 };
@@ -21,12 +22,6 @@ export const filmProcess = createSlice({
     chooseGenre: (state, action) => {
       state.genre = action.payload;
     },
-    getFilms: (state, action) => {
-      // @TO-DO удалить это нафиг
-      // state.filmList = state.genre === Genre.All
-      //   ? state.fullFilmList :
-      //   state.fullFilmList.filter((film) => film.genre === state.genre);
-    }
   },
   extraReducers(builder) {
     builder
@@ -49,4 +44,4 @@ export const filmProcess = createSlice({
   }
 });
 
-export const {chooseGenre, getFilms} = filmProcess.actions;
+export const {chooseGenre} = filmProcess.actions;
