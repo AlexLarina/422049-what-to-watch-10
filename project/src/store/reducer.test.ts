@@ -72,21 +72,6 @@
 //     expect(reducer(state, loadPromo(mockFilm)))
 //       .toEqual({...state, promo: mockFilm});
 //   });
-//   // requireAuth,
-//   it('should set given auth status to authorizationStatus field', () => {
-//     // expect(reducer(state, requireAuth(AuthStatus.Auth)))
-//     //   .toEqual({...state, authorizationStatus: AuthStatus.Auth});
-
-//     // expect(reducer(state, requireAuth(AuthStatus.NotAuth)))
-//     //   .toEqual({...state, authorizationStatus: AuthStatus.NotAuth});
-//   });
-//   // saveUserAuthInfo,
-//   it('should set given user data to user state field', () => {
-//     const user = makeFakeUser();
-
-//     expect(reducer(state, saveUserAuthInfo(user)))
-//       .toEqual({...state, user: user});
-//   });
 //   // setLoadingFavouriteStatus,
 //   it('should set given loading status for favourite', () => {
 //     expect(reducer(state, setLoadingFavouriteStatus({favourite: true})))
