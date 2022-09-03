@@ -6,14 +6,16 @@ import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
 import api from '../../services/api';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFavourites } from '../../store/film-process/selectors';
 
 type FilmControlsProps = {
   film: Film;
 }
 
 function FilmControls({film}: FilmControlsProps): JSX.Element {
-  const favouritesCount = useAppSelector((state) => state.favouriteFilmList.length);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const favouritesCount = useAppSelector(getFavourites).length;
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

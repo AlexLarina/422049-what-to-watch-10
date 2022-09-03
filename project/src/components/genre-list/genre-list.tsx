@@ -1,5 +1,5 @@
 import { Genre, MAX_GENRE_SHOWN } from '../../const';
-import { chooseGenre, getFilms } from '../../store/action';
+import { chooseGenre, getFilms } from '../../store/film-process/film-process';
 
 import Film from '../../types/film';
 import { useAppDispatch } from '../../hooks';

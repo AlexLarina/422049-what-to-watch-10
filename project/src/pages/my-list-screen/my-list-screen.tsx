@@ -1,10 +1,11 @@
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { getFavourites } from '../../store/film-process/selectors';
 import { useAppSelector } from '../../hooks';
 
 function MyListScreen(): JSX.Element {
-  const favouriteFilms = useAppSelector((state) => state.favouriteFilmList);
+  const favouriteFilms = useAppSelector(getFavourites);
 
   return (
     <div className="user-page">
