@@ -1,11 +1,11 @@
 import { APIRoute, AppRoute, AuthStatus } from '../../const';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { fetchFavouriteAction, fetchFilmsAction, fetchPromoAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
 import api from '../../services/api';
-import { fetchFavouriteAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getFavourites } from '../../store/film-process/selectors';
 
@@ -19,7 +19,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [isFavourite, setFavourite] = useState(false);
+  const [isFavourite, setFavourite] = useState(film.isFavorite);
   const [statusChanged, setStatusChanged] = useState(false);
 
   const onFavouriteClick = () => {
@@ -33,9 +33,8 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       await api.post(`${APIRoute.Favourite}/${film.id}/${isFavourite ? 1 : 0}`)
         .then(() => {
           setStatusChanged(false);
-          // @TO-DO оптимизировать обновление
-          // dispatch(fetchPromoAction());
-          // dispatch(fetchFilmsAction());
+          dispatch(fetchPromoAction());
+          dispatch(fetchFilmsAction());
           dispatch(fetchFavouriteAction());
         });
     };
