@@ -28,7 +28,7 @@ function PlayerScreen(): JSX.Element {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
-  const onPlayerClick = () => {
+  const playerClickHandler = () => {
     if (videoRef.current === null) {
       return;
     }
@@ -43,11 +43,11 @@ function PlayerScreen(): JSX.Element {
     videoRef.current.pause();
   };
 
-  const onExitClick = () => {
+  const exitClickHandler = () => {
     browserHistory.back();
   };
 
-  const onFullScreenClick = () => {
+  const fullScreenClickHandler = () => {
     const elem = document.documentElement;
     if (elem.requestFullscreen) { elem.requestFullscreen(); }
   };
@@ -81,7 +81,7 @@ function PlayerScreen(): JSX.Element {
       <button
         type="button"
         className="player__exit"
-        onClick={onExitClick}
+        onClick={exitClickHandler}
       >Exit
       </button>
 
@@ -109,7 +109,7 @@ function PlayerScreen(): JSX.Element {
           <button
             type="button"
             className="player__play"
-            onClick={onPlayerClick}
+            onClick={playerClickHandler}
           >
             <svg viewBox="0 0 19 19" width="19" height="19">
               {
@@ -125,7 +125,7 @@ function PlayerScreen(): JSX.Element {
           <button
             type="button"
             className="player__full-screen"
-            onClick={onFullScreenClick}
+            onClick={fullScreenClickHandler}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
