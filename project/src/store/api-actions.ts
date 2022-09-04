@@ -1,4 +1,3 @@
-import { APIRoute, AuthStatus } from '../const';
 import {
   AppDispatch,
   State
@@ -7,23 +6,12 @@ import {
   dropToken,
   saveToken
 } from '../services/token';
-import {
-  loadFavourite,
-  loadFilms,
-  loadPromo,
-  requireAuth,
-  saveUserAuthInfo,
-  setLoadingFavouriteStatus,
-  setLoadingFilmsStatus,
-  setLoadingPromoStatus,
-} from './action';
 
-import { ApiFilm } from '../types/api';
+import { APIRoute } from '../const';
 import { AuthData } from '../types/auth-data';
 import { AxiosInstance } from 'axios';
 import Film from '../types/film';
 import { UserData } from '../types/user-data';
-import { adaptFilmFromApi } from '../services/adapters/film';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 type thunkOptions = {
@@ -32,60 +20,46 @@ type thunkOptions = {
   extra: AxiosInstance,
 };
 
-export const fetchFilmsAction = createAsyncThunk<void, undefined, thunkOptions>(
+export const fetchFilmsAction = createAsyncThunk<Film[], undefined, thunkOptions>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Films);
-    dispatch(setLoadingFilmsStatus({films: true}));
-    const adaptedFilmList = data.map((filmData: ApiFilm) => adaptFilmFromApi(filmData));
-    dispatch(loadFilms(adaptedFilmList));
+    return data;
   },
 );
 
-export const fetchPromoAction = createAsyncThunk<void, undefined, thunkOptions>(
-  'data/fetchFilms',
+export const fetchPromoAction = createAsyncThunk<Film, undefined, thunkOptions>(
+  'data/fetchPromo',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(APIRoute.Promo);
-    dispatch(setLoadingPromoStatus({promo: true}));
-    dispatch(loadPromo(adaptFilmFromApi(data)));
+    return data;
   },
 );
 
-export const fetchFavouriteAction = createAsyncThunk<void, undefined, thunkOptions>(
+export const fetchFavouriteAction = createAsyncThunk<Film[], undefined, thunkOptions>(
   'data/fetchFavourite',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Film[]>(APIRoute.Favourite);
-    const adaptedFavouriteFilmList = data.map((filmData: ApiFilm) => adaptFilmFromApi(filmData));
-    dispatch(setLoadingFavouriteStatus({favourite: true}));
-    dispatch(loadFavourite(adaptedFavouriteFilmList));
+    return data;
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, thunkOptions>(
+export const checkAuthAction = createAsyncThunk<UserData, undefined, thunkOptions>(
   'user/requireAuth',
   async (_arg, {dispatch, extra: api}) => {
-    await api.get(APIRoute.Login)
-      .then(
-        ({data}) => {
-          dispatch(requireAuth(AuthStatus.Auth));
-          dispatch(saveUserAuthInfo(data));
-        },
-        () => {
-          dispatch(requireAuth(AuthStatus.NotAuth));
-        });
+    const {data} = await api.get(APIRoute.Login);
+    dispatch(fetchFavouriteAction());
+    return data;
   }
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, thunkOptions>(
+export const loginAction = createAsyncThunk<UserData, AuthData, thunkOptions>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    await api.post<UserData>(APIRoute.Login, {email, password})
-      .then(({data}) => {
-        dispatch(requireAuth(AuthStatus.Auth));
-        dispatch(saveUserAuthInfo(data));
-        saveToken(data.token);
-        dispatch(fetchFavouriteAction());
-      });
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
+    dispatch(fetchFavouriteAction());
+    return data;
   }
 );
 
@@ -94,6 +68,5 @@ export const logoutAction = createAsyncThunk<void, undefined, thunkOptions>(
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireAuth(AuthStatus.NotAuth));
   }
 );

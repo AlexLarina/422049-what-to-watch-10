@@ -1,11 +1,13 @@
+import { getLoadingStatus, getPromo } from '../../store/film-process/selectors';
+
 import Film from '../../types/film';
 import FilmControls from '../film-controls/film-controls';
 import Header from '../header/header';
 import { useAppSelector } from '../../hooks';
 
 function FilmPromo(): JSX.Element {
-  const film = useAppSelector((state) => state.promo) as Film;
-  const isPromoLoaded = useAppSelector((state) => state.isLoadingCompleted.promo);
+  const film = useAppSelector(getPromo) as Film;
+  const isPromoLoaded = useAppSelector(getLoadingStatus).promo;
 
   if (!isPromoLoaded) {
     return <p>Data loading...</p>;

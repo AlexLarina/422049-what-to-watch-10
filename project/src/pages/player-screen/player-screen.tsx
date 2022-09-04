@@ -101,7 +101,7 @@ function PlayerScreen(): JSX.Element {
             </div>
           </div>
           <div className="player__time-value">
-            {formateTime(duration - currentTime)}
+            {`- ${formateTime(duration - currentTime)}`}
           </div>
         </div>
 

@@ -1,4 +1,7 @@
-import { APIRoute, FILM_MOCK_AMOUNT } from '../const';
+import {
+  APIRoute,
+  FILM_MOCK_AMOUNT
+} from '../const';
 import {
   checkAuthAction,
   fetchFavouriteAction,
@@ -7,16 +10,6 @@ import {
   loginAction,
   logoutAction
 } from './api-actions';
-import {
-  loadFavourite,
-  loadFilms,
-  loadPromo,
-  requireAuth,
-  saveUserAuthInfo,
-  setLoadingFavouriteStatus,
-  setLoadingFilmsStatus,
-  setLoadingPromoStatus
-} from './action';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 
 import {Action} from 'redux';
@@ -52,8 +45,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       checkAuthAction.pending.type,
-      requireAuth.type,
-      saveUserAuthInfo.type,
+      fetchFavouriteAction.pending.type,
       checkAuthAction.fulfilled.type
     ]);
   });
@@ -76,8 +68,6 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       loginAction.pending.type,
-      requireAuth.type,
-      saveUserAuthInfo.type,
       fetchFavouriteAction.pending.type,
       loginAction.fulfilled.type
     ]);
@@ -101,7 +91,6 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       logoutAction.pending.type,
-      requireAuth.type,
       logoutAction.fulfilled.type
     ]);
 
@@ -124,8 +113,6 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchFilmsAction.pending.type,
-      setLoadingFilmsStatus.type,
-      loadFilms.type,
       fetchFilmsAction.fulfilled.type
     ]);
   });
@@ -145,8 +132,6 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchPromoAction.pending.type,
-      setLoadingPromoStatus.type,
-      loadPromo.type,
       fetchPromoAction.fulfilled.type
     ]);
   });
@@ -168,8 +153,6 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchFavouriteAction.pending.type,
-      setLoadingFavouriteStatus.type,
-      loadFavourite.type,
       fetchFavouriteAction.fulfilled.type
     ]);
   });

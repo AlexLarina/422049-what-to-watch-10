@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { loginAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ const validatePassword = (password: string) => password
   .match(/([a-zA-Z]+\d+)|(\d+[a-zA-Z]+)/gm);
 
 function LoginScreen(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [submitDisabled, setSubmitDisabled] = useState(true);

@@ -12,13 +12,13 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
+import { getLoadingStatus } from '../../store/film-process/selectors';
 import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
-  const {isLoadingCompleted} = useAppSelector((state) => state);
+  const loadingStatuses = useAppSelector(getLoadingStatus);
 
-  // @TO-DO - переписать на проверку всех ключей
-  if (!isLoadingCompleted) {
+  if (!loadingStatuses.promo || !loadingStatuses.films) {
     return (
       <p>Данные загружаются...</p>
     );

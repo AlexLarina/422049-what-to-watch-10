@@ -42,6 +42,12 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
       setShowHint(false);
       setSubmitDisabled(false);
     }
+
+    return () => {
+      formData['review-text'] = '';
+      formData['rating'] = '';
+    };
+
   }, [formData]);
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

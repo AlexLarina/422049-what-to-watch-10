@@ -41,6 +41,11 @@ export enum Genre {
   All = 'All genres',
 }
 
+export enum NameSpace {
+  Film = 'FILM',
+  User = 'USER',
+}
+
 export const MONTHS = [
   'January',
   'February',

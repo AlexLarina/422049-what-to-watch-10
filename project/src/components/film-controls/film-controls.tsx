@@ -6,22 +6,28 @@ import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
 import api from '../../services/api';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFavourites } from '../../store/film-process/selectors';
 
 type FilmControlsProps = {
   film: Film;
 }
 
 function FilmControls({film}: FilmControlsProps): JSX.Element {
-  const favouritesCount = useAppSelector((state) => state.favouriteFilmList.length);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const favouritesCount = useAppSelector(getFavourites).length;
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [isFavourite, setFavourite] = useState(false);
+  const [isFavourite, setFavourite] = useState(
+    authStatus === AuthStatus.Auth
+      ? film.isFavorite
+      : false
+  );
   const [statusChanged, setStatusChanged] = useState(false);
 
   const onFavouriteClick = () => {
-    if (authStatus === AuthStatus.NotAuth) {navigate(AppRoute.Login);}
+    if (authStatus === AuthStatus.NotAuth) { navigate(AppRoute.Login); }
     setFavourite(!isFavourite);
     setStatusChanged(true);
   };
@@ -31,15 +37,17 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       await api.post(`${APIRoute.Favourite}/${film.id}/${isFavourite ? 1 : 0}`)
         .then(() => {
           setStatusChanged(false);
-          // @TO-DO оптимизировать обновление
           dispatch(fetchPromoAction());
           dispatch(fetchFilmsAction());
           dispatch(fetchFavouriteAction());
         });
     };
 
-    if(statusChanged) {changeFilmStatus();}
-  }, [statusChanged]);
+    if(statusChanged) { changeFilmStatus(); }
+
+    if (authStatus === AuthStatus.NotAuth) { setFavourite(false); }
+
+  }, [statusChanged, authStatus]);
 
   return (
     <div className="film-card__buttons">
@@ -70,7 +78,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       >
         <svg viewBox="0 0 19 20" width="19" height="20">
           {
-            (isFavourite || film.isFavorite)
+            (isFavourite)
               ? <use xlinkHref="#in-list"></use>
               : <use xlinkHref="#add"></use>
           }
