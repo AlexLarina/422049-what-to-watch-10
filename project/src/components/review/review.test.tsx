@@ -8,7 +8,7 @@ import Review from './review';
 import { createMemoryHistory } from 'history';
 import { makeFakeReview } from '../../test/mocks';
 
-describe('Component: Details', () => {
+describe('Component: Review', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
     const review = makeFakeReview();

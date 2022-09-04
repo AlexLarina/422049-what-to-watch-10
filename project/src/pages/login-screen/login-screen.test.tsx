@@ -3,6 +3,7 @@ import {
   screen
 } from '@testing-library/react';
 
+import { AuthStatus } from '../../const';
 import HistoryRouter from '../../components/history-route/history-route';
 import LoginScreen from './login-screen';
 import { Provider } from 'react-redux';
@@ -15,7 +16,12 @@ describe('Component: LoginScreen', () => {
     const history = createMemoryHistory();
 
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={mockStore({
+        USER: {
+          authorizationStatus: AuthStatus.NotAuth,
+        }
+      })}
+      >
         <HistoryRouter history={history}>
           <LoginScreen />
         </HistoryRouter>

@@ -22,5 +22,7 @@ describe('Component: MovieScreen', () => {
         </HistoryRouter>
       </Provider>,
     );
+
+    expect(screen.getByText('Data loading...')).toBeInTheDocument();
   });
 });

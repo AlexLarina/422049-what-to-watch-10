@@ -19,14 +19,18 @@ const favourite = new Array(FILM_MOCK_AMOUNT)
 const promo = makeFakeFilm();
 
 const store = mockStore({
-  genre: Genre.All,
-  fullFilmList: films,
-  filmList: films,
-  favouriteFilmList: favourite,
-  promo: promo,
-  isLoadingCompleted: {promo: true, films: true, favourite: true},
-  authorizationStatus: AuthStatus.NotAuth,
-  user: makeFakeUser(),
+  USER: {
+    authorizationStatus: AuthStatus.NotAuth,
+    user: makeFakeUser(),
+  },
+  FILM: {
+    genre: Genre.All,
+    filmList: films,
+    filmsByGenre: films,
+    favouriteFilmList: favourite,
+    promo: promo,
+    isLoadingCompleted: {promo: true, films: true, favourite: true},
+  },
 });
 
 const history = createMemoryHistory();
@@ -38,6 +42,16 @@ const fakeApp = (
     </HistoryRouter>
   </Provider>
 );
+
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useLocation: () => ({
+    state: {
+      filmRef: '',
+      poster: '',
+    }
+  })
+}));
 
 describe('Application Routing', () => {
   it('should render "MainScreen" when user navigate to "/"', () => {
@@ -76,14 +90,14 @@ describe('Application Routing', () => {
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
   });
 
-  // it('should render "PlayerScreen" when user navigate to "/player/:id"', () => {
-  //   history.push(`/player/${promo.id}`);
+  it('should render "PlayerScreen" when user navigate to "/player/:id"', () => {
+    history.push(`/player/${promo.id}`);
 
-  //   render(fakeApp);
+    render(fakeApp);
 
-  //   expect(screen.getByText('Transpotting')).toBeInTheDocument();
-  //   expect(screen.getByText('Full screen')).toBeInTheDocument();
-  // });
+    expect(screen.getByText('Transpotting')).toBeInTheDocument();
+    expect(screen.getByText('Full screen')).toBeInTheDocument();
+  });
 
   it('should render "LoginScreen" when user navigate to "/mylist" and not auth', () => {
     history.push(AppRoute.UserFilmList);

@@ -3,6 +3,7 @@ import {
   screen
 } from '@testing-library/react';
 
+import { AuthStatus } from '../../const';
 import Header from './header';
 import HistoryRouter from '../history-route/history-route';
 import { Provider } from 'react-redux';
@@ -16,13 +17,18 @@ describe('Component: Header', () => {
     const history = createMemoryHistory();
 
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={mockStore({
+        USER: {
+          authStatus: AuthStatus.NotAuth,
+        },
+      })}
+      >
         <HistoryRouter history={history}>
           <Header headerClass={''}/>
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByText('T')).toBeInTheDocument();
+    expect(screen.getByTestId('page-header')).toBeInTheDocument();
   });
 });

@@ -20,8 +20,8 @@ describe('Component: FilmList', () => {
     render(
       <Provider store={
         mockStore({
-          favouriteFilmList: new Array(3),
-          authStatus: AuthStatus.Auth
+          FILM: { favouriteFilmList: new Array(3) },
+          USER: { authStatus: AuthStatus.Auth },
         })
       }
       >

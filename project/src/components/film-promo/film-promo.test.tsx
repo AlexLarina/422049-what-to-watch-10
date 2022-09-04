@@ -16,13 +16,16 @@ const mockStore = configureMockStore();
 describe('Component: FilmPromo', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+    const promoFake = makeFakeFilm();
     render(
       <Provider store={
         mockStore({
-          promo: makeFakeFilm(),
-          isLoadingCompleted: {promo: true},
-          favouriteFilmList: new Array(3),
-          authStatus: AuthStatus.Auth,
+          FILM: {
+            favouriteFilmList: new Array(3),
+            promo: promoFake,
+            isLoadingCompleted: {promo: true},
+          },
+          USER: { authStatus: AuthStatus.Auth },
         })
       }
       >
@@ -32,6 +35,6 @@ describe('Component: FilmPromo', () => {
       </Provider>,
     );
 
-    // expect(screen.getByText('Post')).toBeInTheDocument();
+    expect(screen.getByText(promoFake.title)).toBeInTheDocument();
   });
 });

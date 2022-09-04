@@ -17,7 +17,10 @@ function Header({headerClass, children}: HeaderProps): JSX.Element {
   const { pathname } = useLocation();
 
   return (
-    <header className={`page-header ${headerClass}`}>
+    <header
+      className={`page-header ${headerClass}`}
+      data-testid="page-header"
+    >
       <div className="logo">
         <Link
           className="logo__link"

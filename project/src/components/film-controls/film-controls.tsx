@@ -26,7 +26,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
   );
   const [statusChanged, setStatusChanged] = useState(false);
 
-  const onFavouriteClick = () => {
+  const favouriteClickHandler = () => {
     if (authStatus === AuthStatus.NotAuth) { navigate(AppRoute.Login); }
     setFavourite(!isFavourite);
     setStatusChanged(true);
@@ -74,7 +74,7 @@ function FilmControls({film}: FilmControlsProps): JSX.Element {
       <button
         className="btn btn--list film-card__button"
         type="button"
-        onClick={onFavouriteClick}
+        onClick={favouriteClickHandler}
       >
         <svg viewBox="0 0 19 20" width="19" height="20">
           {

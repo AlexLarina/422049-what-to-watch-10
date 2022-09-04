@@ -3,6 +3,7 @@ import {
   screen
 } from '@testing-library/react';
 
+import { AuthStatus } from '../../const';
 import HistoryRouter from '../../components/history-route/history-route';
 import NotFoundScreen from './not-found-screen';
 import { Provider } from 'react-redux';
@@ -17,7 +18,12 @@ describe('Component: NotFoundScreen', () => {
     history.push('/not_found');
 
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={mockStore({
+        USER: {
+          authorizationStatus: AuthStatus.NotAuth,
+        },
+      })}
+      >
         <HistoryRouter history={history}>
           <NotFoundScreen />
         </HistoryRouter>
