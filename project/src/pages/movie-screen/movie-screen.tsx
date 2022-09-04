@@ -43,7 +43,10 @@ function MovieScreen(): JSX.Element {
 
   return (
     <>
-      <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
+      <section
+        className="film-card film-card--full"
+        style={{ backgroundColor: film.backgroundColor }}
+      >
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={film.bigPosterSrc} alt={film.title} />
