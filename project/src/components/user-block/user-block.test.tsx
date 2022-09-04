@@ -13,15 +13,17 @@ import { makeFakeUser } from '../../test/mocks';
 
 const mockStore = configureMockStore();
 
-describe('Component: AddReview', () => {
+describe('Component: UserBlock', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
     const user = makeFakeUser();
     render(
       <Provider store={
         mockStore({
-          authStatus: AuthStatus.Auth,
-          user: user,
+          USER: {
+            authorizationStatus: AuthStatus.Auth,
+            user: user,
+          }
         })
       }
       >

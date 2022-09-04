@@ -20,12 +20,12 @@ function UserBlock(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onClick = (evt: React.MouseEvent<HTMLElement>) => {
+  const userBlockClickHandler = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
   };
 
-  const onAvatarClick = (evt: React.MouseEvent<HTMLElement>) => {
+  const avatarClickHandler = (evt: React.MouseEvent<HTMLElement>) => {
     navigate(AppRoute.UserFilmList);
   };
 
@@ -42,7 +42,7 @@ function UserBlock(): JSX.Element {
       :
       <ul className="user-block">
         <li className="user-block__item">
-          <div className="user-block__avatar" onClick={onAvatarClick}>
+          <div className="user-block__avatar" onClick={avatarClickHandler}>
             <img
               src={user?.avatarUrl}
               alt="User avatar"
@@ -55,7 +55,7 @@ function UserBlock(): JSX.Element {
           <span
             style={{cursor: 'pointer'}}
             className="user-block__link"
-            onClick={onClick}
+            onClick={userBlockClickHandler}
           >
             Sign out
           </span>
