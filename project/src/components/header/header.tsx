@@ -1,12 +1,15 @@
 import {
+  AppRoute,
+  Genre,
+} from '../../const';
+import {
   Link,
   useLocation,
 } from 'react-router-dom';
 
-import {
-  AppRoute
-} from '../../const';
 import UserBlock from '../user-block/user-block';
+import { chooseGenre } from '../../store/film-process/film-process';
+import { useAppDispatch } from '../../hooks';
 
 type HeaderProps = {
   headerClass: string;
@@ -15,6 +18,7 @@ type HeaderProps = {
 
 function Header({headerClass, children}: HeaderProps): JSX.Element {
   const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
 
   return (
     <header
@@ -25,6 +29,7 @@ function Header({headerClass, children}: HeaderProps): JSX.Element {
         <Link
           className="logo__link"
           to={AppRoute.Root}
+          onClick={() => dispatch(chooseGenre(Genre.All)) }
         >
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
