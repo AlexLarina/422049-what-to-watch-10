@@ -13,7 +13,7 @@ function FilmList({filmData}: FilmListProps): JSX.Element {
   const [, setActiveFilm] = useState(filmData[0]);
   const [countShown, setCountShown] = useState(SHOWN_FILM_LIMIT);
 
-  const onShowMore = () => {
+  const showMoreClickHandler = () => {
     (countShown + SHOWN_FILM_LIMIT > filmData.length)
       ? setCountShown(filmData.length)
       : setCountShown(countShown + SHOWN_FILM_LIMIT);
@@ -36,7 +36,7 @@ function FilmList({filmData}: FilmListProps): JSX.Element {
           ))
         }
       </div>
-      {countShown < filmData.length ? <ShowMore onShowMore={onShowMore} /> : null}
+      {countShown < filmData.length ? <ShowMore onShowMore={showMoreClickHandler} /> : null}
     </>
   );
 }
