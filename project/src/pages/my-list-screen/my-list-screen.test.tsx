@@ -1,3 +1,5 @@
+import { AuthStatus, FILM_MOCK_AMOUNT } from '../../const';
+import { makeFakeFilm, makeFakeUser } from '../../test/mocks';
 import {
   render,
   screen
@@ -13,14 +15,28 @@ const mockStore = configureMockStore();
 
 describe('Component: MyListScreen', () => {
   it('should render correctly', () => {
-    // const history = createMemoryHistory();
+    const history = createMemoryHistory();
+    const favourite = new Array(FILM_MOCK_AMOUNT)
+      .fill(makeFakeFilm())
+      .filter((film) => film.isFavourite);
 
-    // render(
-    //   <Provider store={mockStore({})}>
-    //     <HistoryRouter history={history}>
-    //       <MyListScreen />
-    //     </HistoryRouter>
-    //   </Provider>,
-    // );
+    render(
+      <Provider store={mockStore({
+        FILM: {
+          favouriteFilmList: favourite,
+        },
+        USER: {
+          authorizationStatus: AuthStatus.Auth,
+          user: makeFakeUser(),
+        },
+      })}
+      >
+        <HistoryRouter history={history}>
+          <MyListScreen />
+        </HistoryRouter>
+      </Provider>,
+    );
+
+    expect(screen.getByText('Catalog')).toBeInTheDocument();
   });
 });
