@@ -55,12 +55,12 @@ function LoginScreen(): JSX.Element {
     }
   }, [formData]);
 
-  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const changeHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {type, value} = evt.target;
     setFormData({...formData, [type]: value});
   };
 
-  const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(loginAction(formData));
     navigate(AppRoute.Root);
@@ -73,7 +73,7 @@ function LoginScreen(): JSX.Element {
       </Header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={onSubmit}>
+        <form action="#" className="sign-in__form" onSubmit={submitHandler}>
           {
             hintMessage &&
             <div className="sign-in__message">
@@ -94,7 +94,7 @@ function LoginScreen(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
-                onChange={onChange}
+                onChange={changeHandler}
                 value={formData['email']}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
@@ -112,7 +112,7 @@ function LoginScreen(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
-                onChange={onChange}
+                onChange={changeHandler}
                 value={formData['password']}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
