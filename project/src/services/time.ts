@@ -3,12 +3,12 @@ import {
   intervalToDuration
 } from 'date-fns';
 
-import { SECONDS_IN_HOUR } from '../const';
+import { Hour } from '../const';
 
 const formateTime = (seconds: number) => {
   const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
   const zeroPad = (count: number) => String(count).padStart(2, '0');
-  const format = seconds > SECONDS_IN_HOUR
+  const format = seconds > Hour.Seconds
     ? ['hours', 'minutes', 'seconds']
     : ['minutes', 'seconds'];
 

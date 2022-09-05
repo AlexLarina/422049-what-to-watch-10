@@ -5,14 +5,16 @@ export const SIMILAR_FILM_LIMIT = 4;
 export const MAX_RATE = 10;
 export const MAX_GENRE_SHOWN = 9;
 
-export const MINTUES_IN_HOUR = 60;
-export const SECONDS_IN_HOUR = 3600;
-
 export const CONNECT_TIMEOUT = 5000;
 export const PREVIEW_TIMEOUT = 1000;
 
 export const FILM_MOCK_AMOUNT = 25;
 export const LOADER_COLOR = '#d9cd8d';
+
+export enum Hour {
+  Minutes = 60,
+  Seconds = 3600,
+}
 
 export enum ReviewLength {
   Min = 50,

@@ -1,12 +1,12 @@
 import Film from '../../types/film';
-import { MINTUES_IN_HOUR } from '../../const';
+import { Hour } from '../../const';
 
 type DetailsProps = {
   film: Film;
 };
 
 const outputRuntime = (minutes: number): string =>
-  `${Math.floor(minutes / MINTUES_IN_HOUR)}h ${minutes % MINTUES_IN_HOUR}m`;
+  `${Math.floor(minutes / Hour.Minutes)}h ${minutes % Hour.Minutes}m`;
 
 function Details({film}: DetailsProps): JSX.Element {
   return (
