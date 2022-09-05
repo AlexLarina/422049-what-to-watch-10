@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Film from '../../types/film';
-import { PREVIEW_TIMEOUT } from '../../const';
+import { Timeout } from '../../const';
 import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
@@ -37,7 +37,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
 
     const timer = setTimeout(() => {
       setShowPreview(true);
-    }, PREVIEW_TIMEOUT);
+    }, Timeout.Preview);
 
     return () => clearTimeout(timer);
   }, [handleMouseOver, handleMouseOut]);

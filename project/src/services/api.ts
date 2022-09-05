@@ -1,6 +1,6 @@
 import {
   BASE_URL,
-  CONNECT_TIMEOUT
+  Timeout
 } from '../const';
 import
 axios,
@@ -28,7 +28,7 @@ const options: {
   timeout: number;
 } = {
   baseURL: BASE_URL,
-  timeout: CONNECT_TIMEOUT,
+  timeout: Timeout.Connect,
 };
 
 const createAPI = (): AxiosInstance => axios.create(options);
