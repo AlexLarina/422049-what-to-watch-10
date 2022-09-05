@@ -55,7 +55,7 @@ function LoginScreen(): JSX.Element {
     }
   }, [formData]);
 
-  const changeHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLoginFormChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {type, value} = evt.target;
     setFormData({...formData, [type]: value});
   };
@@ -94,7 +94,7 @@ function LoginScreen(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
-                onChange={changeHandler}
+                onChange={handleLoginFormChange}
                 value={formData['email']}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
@@ -112,7 +112,7 @@ function LoginScreen(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
-                onChange={changeHandler}
+                onChange={handleLoginFormChange}
                 value={formData['password']}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>

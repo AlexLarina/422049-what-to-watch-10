@@ -50,7 +50,7 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
 
   }, [formData]);
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleReviewElementChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
@@ -92,7 +92,7 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
                       <RatePoint
                         key={`rate-point-${array.length - idx}`}
                         pointID={array.length - idx}
-                        onChange={handleChange}
+                        onChange={handleReviewElementChange}
                       />
                     ) )
               }
@@ -112,7 +112,7 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
               name="review-text"
               id="review-text"
               placeholder="Review text"
-              onChange={handleChange}
+              onChange={handleReviewElementChange}
               value={formData['review-text']}
               minLength={REVIEW_MIN_LENGTH}
               maxLength={REVIEW_MAX_LENGTH}
