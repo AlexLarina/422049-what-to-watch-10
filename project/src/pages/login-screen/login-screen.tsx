@@ -60,7 +60,7 @@ function LoginScreen(): JSX.Element {
     setFormData({...formData, [type]: value});
   };
 
-  const submitHandler = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginFormSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(loginAction(formData));
     navigate(AppRoute.Root);
@@ -73,7 +73,7 @@ function LoginScreen(): JSX.Element {
       </Header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={submitHandler}>
+        <form action="#" className="sign-in__form" onSubmit={handleLoginFormSubmit}>
           {
             hintMessage &&
             <div className="sign-in__message">
