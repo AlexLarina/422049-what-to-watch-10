@@ -74,14 +74,14 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
       );
   };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     postReviewData();
   };
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={onSubmit}>
+      <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
         <fieldset disabled={processSubmit}>
           <div className="rating">
             <div className="rating__stars">
