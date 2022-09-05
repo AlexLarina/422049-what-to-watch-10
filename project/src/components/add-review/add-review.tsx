@@ -3,8 +3,7 @@ import './add-review.css';
 import {
   APIRoute,
   MAX_RATE,
-  REVIEW_MAX_LENGTH,
-  REVIEW_MIN_LENGTH
+  ReviewLength
 } from '../../const';
 import { useEffect, useState } from 'react';
 
@@ -33,8 +32,8 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
 
   useEffect(() => {
     if (
-      formData['review-text'].length < REVIEW_MIN_LENGTH ||
-      formData['review-text'].length > REVIEW_MAX_LENGTH ||
+      formData['review-text'].length < ReviewLength.Min ||
+      formData['review-text'].length > ReviewLength.Max ||
       formData['rating'] === ''
     ) {
       setShowHint(true);
@@ -102,7 +101,7 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
           { showHint &&
         <div className='add-review__hint hint' style={{ backgroundColor: color }}>
           <p className="hint__text">
-            Please write a comment between {REVIEW_MIN_LENGTH} and {REVIEW_MAX_LENGTH} symbols and set rating in order to submit your review
+            Please write a comment between {ReviewLength.Min} and {ReviewLength.Max} symbols and set rating in order to submit your review
           </p>
         </div> }
 
@@ -114,8 +113,8 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
               placeholder="Review text"
               onChange={handleReviewElementChange}
               value={formData['review-text']}
-              minLength={REVIEW_MIN_LENGTH}
-              maxLength={REVIEW_MAX_LENGTH}
+              minLength={ReviewLength.Min}
+              maxLength={ReviewLength.Max}
             >
             </textarea>
             <div className="add-review__submit">
