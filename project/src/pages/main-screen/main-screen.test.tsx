@@ -1,4 +1,4 @@
-import { AuthStatus, FILM_MOCK_AMOUNT, Genre } from '../../const';
+import { AppLimit, AuthStatus, Genre } from '../../const';
 import { makeFakeFilm, makeFakeUser } from '../../test/mocks';
 import {
   render,
@@ -16,8 +16,8 @@ const mockStore = configureMockStore();
 describe('Component: MainScreen', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-    const films = new Array(FILM_MOCK_AMOUNT).fill(makeFakeFilm());
-    const favourite = new Array(FILM_MOCK_AMOUNT)
+    const films = new Array(AppLimit.FilmMocked).fill(makeFakeFilm());
+    const favourite = new Array(AppLimit.FilmMocked)
       .fill(makeFakeFilm())
       .filter((film) => film.isFavourite);
     const promo = makeFakeFilm();

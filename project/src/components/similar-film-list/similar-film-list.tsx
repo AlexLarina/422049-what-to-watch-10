@@ -1,4 +1,4 @@
-import { APIRoute, SIMILAR_FILM_LIMIT } from '../../const';
+import { APIRoute, AppLimit } from '../../const';
 import { useEffect, useState } from 'react';
 
 import { ApiFilm } from '../../types/api';
@@ -19,7 +19,7 @@ function SimilarFilmList({filmID}: SimilarFilmListProps): JSX.Element {
       const {data} = await api.get<ApiFilm[]>(`${APIRoute.Films}/${filmID}/similar`);
       const similarFilms = data
         .filter((similarFilm) => similarFilm.id !== filmID)
-        .slice(0, SIMILAR_FILM_LIMIT)
+        .slice(0, AppLimit.SimilarFilmShown)
         .map((similarFilm) => adaptFilmFromApi(similarFilm));
       setLoadingCompleted(!isLoadingCompleted);
       setFilms(similarFilms);

@@ -1,4 +1,4 @@
-import { FILM_MOCK_AMOUNT, Genre } from '../../const';
+import { AppLimit, Genre } from '../../const';
 import { chooseGenre, filmProcess } from './film-process';
 import {
   fetchFavouriteAction,
@@ -33,7 +33,7 @@ describe('Reducer: FilmProcess', () => {
 
   describe('Loaded data', () => {
     it('should update filmList by load films', () => {
-      const films = [...new Array(FILM_MOCK_AMOUNT)].map(() => makeFakeFilm());
+      const films = [...new Array(AppLimit.FilmMocked)].map(() => makeFakeFilm());
       expect(filmProcess.reducer(state,
         {type: fetchFilmsAction.fulfilled.type, payload: films}))
         .toEqual({
@@ -55,7 +55,7 @@ describe('Reducer: FilmProcess', () => {
     });
 
     it('should update favouriteFilmList by load favourites', () => {
-      const favs = [...new Array(FILM_MOCK_AMOUNT)]
+      const favs = [...new Array(AppLimit.FilmMocked)]
         .map(() => makeFakeFilm())
         .filter((film) => film.isFavorite);
 

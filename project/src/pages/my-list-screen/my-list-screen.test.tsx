@@ -1,4 +1,4 @@
-import { AuthStatus, FILM_MOCK_AMOUNT } from '../../const';
+import { AppLimit, AuthStatus } from '../../const';
 import { makeFakeFilm, makeFakeUser } from '../../test/mocks';
 import {
   render,
@@ -16,7 +16,7 @@ const mockStore = configureMockStore();
 describe('Component: MyListScreen', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-    const favourite = new Array(FILM_MOCK_AMOUNT)
+    const favourite = new Array(AppLimit.FilmMocked)
       .fill(makeFakeFilm())
       .filter((film) => film.isFavourite);
 

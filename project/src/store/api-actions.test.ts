@@ -1,6 +1,6 @@
 import {
   APIRoute,
-  FILM_MOCK_AMOUNT
+  AppLimit
 } from '../const';
 import {
   checkAuthAction,
@@ -100,7 +100,7 @@ describe('Async actions', () => {
 
   // fetchFilmsAction
   it('should dispatch loadFilms when GET /films', async () => {
-    const mockFilms = new Array(FILM_MOCK_AMOUNT).fill(makeFakeFilm());
+    const mockFilms = new Array(AppLimit.FilmMocked).fill(makeFakeFilm());
     mockAPI
       .onGet(APIRoute.Films)
       .reply(200, mockFilms);
@@ -138,7 +138,7 @@ describe('Async actions', () => {
 
   // fetchFavouriteAction
   it('should dispatch loadFavourite when GET /favorite', async () => {
-    const mockFavourite = new Array(FILM_MOCK_AMOUNT)
+    const mockFavourite = new Array(AppLimit.FilmMocked)
       .fill(makeFakeFilm())
       .filter((film) => film.isFavourite);
     mockAPI

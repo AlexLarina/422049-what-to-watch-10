@@ -3,7 +3,7 @@ import {
   screen
 } from '@testing-library/react';
 
-import { FILM_MOCK_AMOUNT } from '../../const';
+import { AppLimit } from '../../const';
 import GenreList from './genre-list';
 import HistoryRouter from '../history-route/history-route';
 import { Provider } from 'react-redux';
@@ -16,7 +16,7 @@ const mockStore = configureMockStore();
 describe('Component: GenreList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-    const films = new Array(FILM_MOCK_AMOUNT).fill(makeFakeFilm());
+    const films = new Array(AppLimit.FilmMocked).fill(makeFakeFilm());
     render(
       <Provider store={mockStore({})}>
         <HistoryRouter history={history}>

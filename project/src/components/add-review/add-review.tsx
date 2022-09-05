@@ -2,7 +2,7 @@ import './add-review.css';
 
 import {
   APIRoute,
-  MAX_RATE,
+  AppLimit,
   ReviewLength
 } from '../../const';
 import { useEffect, useState } from 'react';
@@ -85,7 +85,7 @@ function AddReview({color, filmID}: AddReviewProps): JSX.Element {
           <div className="rating">
             <div className="rating__stars">
               {
-                [...Array(MAX_RATE)]
+                [...Array(AppLimit.MaxRate)]
                   .map((value, idx, array) =>
                     (
                       <RatePoint

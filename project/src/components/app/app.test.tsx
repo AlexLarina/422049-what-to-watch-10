@@ -1,4 +1,4 @@
-import { AppRoute, AuthStatus, FILM_MOCK_AMOUNT, Genre } from '../../const';
+import { AppLimit, AppRoute, AuthStatus, Genre } from '../../const';
 import { makeFakeFilm, makeFakeUser } from '../../test/mocks';
 import {
   render,
@@ -12,8 +12,8 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 
 const mockStore = configureMockStore();
-const films = new Array(FILM_MOCK_AMOUNT).fill(makeFakeFilm());
-const favourite = new Array(FILM_MOCK_AMOUNT)
+const films = new Array(AppLimit.FilmMocked).fill(makeFakeFilm());
+const favourite = new Array(AppLimit.FilmMocked)
   .fill(makeFakeFilm())
   .filter((film) => film.isFavourite);
 const promo = makeFakeFilm();
